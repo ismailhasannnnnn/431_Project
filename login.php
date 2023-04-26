@@ -66,7 +66,6 @@ if($_SERVER["REQUEST_METHOD"] === "POST" ){
     <form method="post" >
         <label for="email"> Email </label>
         <input type="email" name="email" id="email"
-
         value="<?= isset($_POST["email"]) ? $_POST["email"] : "" ?>">
 
         <label for="password"> Password </label>
