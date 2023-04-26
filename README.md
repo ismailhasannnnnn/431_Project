@@ -1,2 +1,9 @@
 # 431_Project
-Medical Chat Tool
+
+Create database "431_Project"
+
+ID Auto-increment
+Email Unique
+Name 
+Password
+Type
