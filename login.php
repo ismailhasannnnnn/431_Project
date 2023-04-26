@@ -49,13 +49,21 @@ if($_SERVER["REQUEST_METHOD"] === "POST" ){
 </head>
 
 <body>
+    <nav>
+         <a href="index.php" >DocMeet</a>
+
+
+         <a href="#"> FAQ </a>
+
+
+    </nav>
     <h1> Login </h1>
 
     <?php if ($is_invalid): ?>
         <em> Invalid username or password</em>
     <?php endif; ?>
 
-    <form method="post">
+    <form method="post" >
         <label for="email"> Email </label>
         <input type="email" name="email" id="email"
         value="<?= isset($_POST["email"]) ? $_POST["email"] : "" ?>">
@@ -63,7 +71,9 @@ if($_SERVER["REQUEST_METHOD"] === "POST" ){
         <label for="password"> Password </label>
         <input type="password" name="password" id="password">
 
-        <button> Log in </button>
+       <p> <button> Log in </button>
+       <a href="signup.html"> Sign up instead</p>
+
 
     </form>
 

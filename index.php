@@ -26,7 +26,26 @@ if(isset($_SESSION["user_id"])){
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kimeiga/bahunya/dist/bahunya.min.css">
 </head>
 <body>
-    <h1> Home </h1>
+
+    <nav>
+         <a href="index.php" >DocMeet</a>
+
+
+        <?php if (!isset($user)): ?>
+            <a href="#"> FAQ </a>
+        <?php endif; ?>
+
+
+        <?php if (isset($user)): ?>
+            <a href="#">Messages</a>
+            <a href="#"> </a>
+            <input type="search" placeholder="Search Practices.." style="height:3em;">
+        <?php endif; ?>
+
+    </nav>
+
+
+    <h1> DocMeet </h1>
 
     <?php if (isset($user)): ?>
         <p> You are now logged in as <?= htmlspecialchars($user["Name"]) ?> </p>
@@ -36,9 +55,12 @@ if(isset($_SESSION["user_id"])){
 
 
     <?php else: ?>
-        <p> <a href="login.php"> Log in </a> or <a href="signup.php"> sign up.</a></p>
+        <p> <button> <a href="login.php"> Log in </a></button> or <button> <a href="signup.php"> Sign up</a></button></p>
 
     <?php endif; ?>
+
+
+
 
 
 </body>
