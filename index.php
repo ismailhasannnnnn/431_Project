@@ -37,9 +37,12 @@ if(isset($_SESSION["user_id"])){
 
 
         <?php if (isset($user)): ?>
-            <a href="#">Messages</a>
-            <a href="#"> </a>
-            <input type="search" placeholder="Search Practices.." style="height:3em;">
+            <a href="edit-practice.php"> Your Practice</a>
+            <a href="edit-profile.php"> Your Profile </a>
+
+            <a href="message-view.php">Messages</a>
+
+
         <?php endif; ?>
 
     </nav>
@@ -48,7 +51,14 @@ if(isset($_SESSION["user_id"])){
     <h1> DocMeet </h1>
 
     <?php if (isset($user)): ?>
-        <p> You are now logged in as <?= htmlspecialchars($user["Name"]) ?> </p>
+        <p> You are now logged in as <?= htmlspecialchars($user["Name"]) ?>
+            (<?= htmlspecialchars($user["Type"]) ?>)</p>
+
+
+
+        <input type="search" placeholder="Search Practices.." style="height:3em;">
+
+
 
 <!--        <p> <a href="logout.php"> Log out </a>-->
         <p> <button><a href="logout.php"> Log out </a> </button></p>
