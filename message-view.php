@@ -42,23 +42,35 @@ if(isset($_SESSION["user_id"])){
 <h1> <?= htmlspecialchars($user["Name"]) ?>'s Messages </h1>
 
 
-<table>
-    <tr>
-        <th>Message</th>
-        <th>From</th>
-        <th>Time</th>
-    </tr>
-    <tr>
-        <td>Hello Welcome to . . .</td>
-        <td>Justin Gonzales</td>
-        <td>2:21 PM</td>
-    </tr>
-    <tr>
-        <td> Greetings, I was wondering . . </td>
-        <td>Ismail Hasan</td>
-        <td>12:00 PM</td>
-    </tr>
-</table>
+<!--<table>-->
+<!--    <tr>-->
+<!--        <th>Message</th>-->
+<!--        <th>From</th>-->
+<!--        <th>Time</th>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td>Hello Welcome to . . .</td>-->
+<!--        <td>Justin Gonzales</td>-->
+<!--        <td>2:21 PM</td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td> Greetings, I was wondering . . </td>-->
+<!--        <td>Ismail Hasan</td>-->
+<!--        <td>12:00 PM</td>-->
+<!--    </tr>-->
+<!--</table>-->
+
+<div>
+    <h1>
+        Inbox
+    </h1>
+    <form>
+        <label>Write a new message...</label> <br>
+        <button> <a href="new-message-view.html">New Message </a></button>
+    </form>
+</div>
+
+
 
 
 </body>

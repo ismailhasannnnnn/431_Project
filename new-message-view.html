@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title> DocMeet </title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kimeiga/bahunya/dist/bahunya.min.css">
+</head>
+
+<body>
+<nav>
+    <a href="index.php" >DocMeet</a>
+    <a href="#"> FAQ </a>
+</nav>
+
+<h1>
+    Send a message
+</h1>
+
+<form action="new-message.php" method="post" novalidate>
+    <div>
+        <label for="emailTo">Recipient Email:  </label>
+        <input type="text" id="emailTo" name="emailTo"/>
+    </div>
+    <br>
+    <div>
+        <label for="content">Message Content:  </label>
+        <textarea id="content" name="content" rows="8" cols="20"></textarea>
+    </div>
+    <br>
+    <div>
+        <button>Submit</button>
+    </div>
+</form>
+
+</body>
+
+</html>
