@@ -52,6 +52,18 @@ if(isset($_SESSION["user_id"])){
 
 
 <?php if (isset($user)): ?>
+    <nav>
+        <a href="index.php" >DocMeet</a>
+        <?php if (!isset($user)): ?>
+            <a href="#"> FAQ </a>
+        <?php endif; ?>
+        <?php if (isset($user)): ?>
+            <a href="edit-practice.php"> Your Practice</a>
+            <a href="edit-profile.php"> Your Profile </a>
+
+            <a href="message-view.php">Messages</a>
+        <?php endif; ?>
+    </nav>
         <p> You are now logged in as <?= htmlspecialchars($user["Name"]) ?>
             (<?= htmlspecialchars($user["Type"]) ?>)</p>
 
