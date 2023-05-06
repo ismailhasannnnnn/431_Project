@@ -23,34 +23,35 @@ if(isset($_SESSION["user_id"])){
 <head>
     <title> DocMeet Home </title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kimeiga/bahunya/dist/bahunya.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/skeleton.css">
+    <link rel="stylesheet" href="css/custom.css">
+
+
+    <!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kimeiga/bahunya/dist/bahunya.min.css">-->
 </head>
 <body>
 
-    <nav>
-         <a href="index.php" >DocMeet</a>
+<!--<nav>-->
+<!--    <a href="index.php" >DocMeet</a>-->
+<!--    --><?php //if (!isset($user)): ?>
+<!--        <a href="#"> FAQ </a>-->
+<!--    --><?php //endif; ?>
+<!--    --><?php //if (isset($user)): ?>
+<!--        <a href="edit-practice.php"> Your Practice</a>-->
+<!--        <a href="edit-profile.php"> Your Profile </a>-->
+<!---->
+<!--        <a href="message-view.php">Messages</a>-->
+<!--    --><?php //endif; ?>
+<!--</nav>-->
+<!---->
 
 
-        <?php if (!isset($user)): ?>
-            <a href="#"> FAQ </a>
-        <?php endif; ?>
 
 
-        <?php if (isset($user)): ?>
-            <a href="edit-practice.php"> Your Practice</a>
-            <a href="edit-profile.php"> Your Profile </a>
-
-            <a href="message-view.php">Messages</a>
-
-
-        <?php endif; ?>
-
-    </nav>
-
-
-    <h1> DocMeet </h1>
-
-    <?php if (isset($user)): ?>
+<?php if (isset($user)): ?>
         <p> You are now logged in as <?= htmlspecialchars($user["Name"]) ?>
             (<?= htmlspecialchars($user["Type"]) ?>)</p>
 
@@ -65,7 +66,57 @@ if(isset($_SESSION["user_id"])){
 
 
     <?php else: ?>
-        <p> <button> <a href="login.php"> Log in </a></button> or <button> <a href="signup.html"> Sign up</a></button></p>
+
+
+<!--                <img src="images/doctors1.png" class="doctor">-->
+
+
+
+            <div class="doctor">
+
+                <nav>
+                    <a href="index.php" >DocMeet</a>
+                    <?php if (!isset($user)): ?>
+                        <a href="#"> FAQ </a>
+                    <?php endif; ?>
+                    <?php if (isset($user)): ?>
+                        <a href="edit-practice.php"> Your Practice</a>
+                        <a href="edit-profile.php"> Your Profile </a>
+
+                        <a href="message-view.php">Messages</a>
+                    <?php endif; ?>
+                </nav>
+
+
+
+                <div class="cover">
+                <div class="container logoGroup">
+                        <h1> DocMeet™ </h1>
+                        <h5> Connecting healthcare professionals for seamless networking.</h5>
+                        <br>
+                        <p>  <a href="login.php" class="button landing-button"> Log in </a> or  <a href="signup.html" class="button landing-button"> Sign up</a> </p>
+                </div>
+
+            </div>
+
+            </div>
+
+
+
+<!--             <div class="container centered-container">-->
+<!--             </div>-->
+
+            <div class="container centered-container">
+
+
+            </div>
+
+
+
+
+
+
+
 
     <?php endif; ?>
 
