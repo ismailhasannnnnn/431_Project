@@ -1,3 +1,5 @@
+
+
 .centered-container {
     max-width: 960px;
     margin: 0 auto;
@@ -44,17 +46,30 @@ img.doctor{
 
 }
 .cover h1{
-    font-size: 100px;
+    font-size: 10vh;
     text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
     margin:5px;
 }
 
+
+
 .cover h5{
-    font-size:25px;
+    font-size:3vh;
     text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+
+}
+
+@media screen and (max-width: 700px) {
+    .cover h1{
+        font-size: 8vh; /* Adjust the font size */
+    }
+    .cover h5{
+        font-size:2vh;
+    }
 
 
 }
+
 nav{
     height:7.5vh;
     display:flex;

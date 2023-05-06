@@ -90,6 +90,7 @@ if(isset($_SESSION["user_id"])){
 
 
                 <div class="cover">
+
                 <div class="container logoGroup">
                         <h1> DocMeet™ </h1>
                         <h5> Connecting healthcare professionals for seamless networking.</h5>
