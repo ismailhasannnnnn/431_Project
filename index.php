@@ -54,6 +54,7 @@ if(isset($_SESSION["user_id"])){
 <?php if (isset($user)): ?>
 
     <nav>
+        <div class="divider"></div>
         <a href="index.php" style="font-size:20px;" >DocMeet</a>
 
 
@@ -62,10 +63,8 @@ if(isset($_SESSION["user_id"])){
             <a href="message-view.php">Messages</a>
 
             <a href="edit-profile.php"> Your Profile </a>
+
     </nav>
-
-    <div class="divider"></div>
-
 
     <div class="container main-card">
         <h1 class="dash">Dashboard</h1>
@@ -84,14 +83,11 @@ if(isset($_SESSION["user_id"])){
                 <a href="logout.php" class="button"> Log out </a>
                 <a href="logout.php" class="button"> Edit Profile </a>
             </div>
-
-
-
         </div>
 
         <div class="row">
             <div class=" column">
-                <h4> Recent Messages</h4>
+                <h4> Recent Invitations</h4>
 
                 <table class="u-full-width">
                     <thead>
@@ -116,23 +112,43 @@ if(isset($_SESSION["user_id"])){
                     </tr>
                     </tbody>
                 </table>
-
-
-
-            </div>
-
-            <div class="one-half column">
-
-            </div>
-
         </div>
+            <div class="row">
+                <div class=" column">
+                    <h4> Personal Messages</h4>
+
+                    <table class="u-full-width">
+                        <thead>
+                        <tr>
+                            <th>Message</th>
+                            <th>From</th>
+                            <th>Date</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Hey I was thinking we could meet up.</td>
+                            <td>jgonza1427@gmail.com</td>
+                            <td> 2 days ago</td>
+                        </tr>
+                        <tr>
+                            <td>Dwayne Johnson</td>
+                            <td>The Rock</td>
+                            <td>3 days ago</td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
 
 
 
 
 
 
-<!--        (--><?php //= htmlspecialchars($user["Type"]) ?><!--)-->
+
+                <!--        (--><?php //= htmlspecialchars($user["Type"]) ?><!--)-->
 
 
 

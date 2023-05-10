@@ -93,6 +93,12 @@ nav{
     justify-content: center;
     background-color: #EFEFEF;
     overflow: hidden;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 9999;
+    /*border-bottom: 1px solid lightgrey;*/
+
 
 }
 
@@ -104,6 +110,10 @@ nav.landingNav{
     /*align-items: center;*/
     /*justify-content: center;*/
     background-color: rgba(0, 0, 0, 0.3);
+    position: fixed; /* Add this line */
+    width: 100%; /* Add this line */
+    top: 0; /* Add this line */
+    z-index: 9999; /* Add this line */
 
 }
 
@@ -141,17 +151,19 @@ h4{
     border-radius:10px;
 }
 
+
 .divider{
-    height:1.5px;
-    background-color:lightgray;
-    max-width: 1200px;
-    margin: 0 auto;
-}
+    width: 1000px; /* Adjust to your desired width */
+    height: 1.5px;
+    background-color: lightgrey;
+    position: absolute;
+    bottom: 0;
+    }
 
 .main-card{
     background-color:white;
     padding:50px;
-    margin-top:20px;
+    margin-top:60px;
     border-radius:20px;
 }
 

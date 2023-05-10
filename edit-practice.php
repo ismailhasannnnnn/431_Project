@@ -1,5 +1,8 @@
 
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
     session_start();
 
 if(isset($_SESSION["user_id"])){
@@ -12,6 +15,14 @@ if(isset($_SESSION["user_id"])){
     $result = $mysqli->query($sql);
 
     $user = $result->fetch_assoc();
+
+    $sql = "SELECT *
+            FROM practices
+            WHERE userID = 11";
+
+    $result1 = $mysqli->query($sql);
+    $practice = $result1->fetch_assoc();
+
 
 
 }
@@ -39,8 +50,16 @@ if(isset($_SESSION["user_id"])){
 
 
 
+
 <h1> Your Practice </h1>
-<p> Looks like you haven't set up your practice yet. <a href="#"> Set up practice.</a></p>
+<?php if (isset($practice)): ?>
+    <p>Practice Name: <?php echo $practice["practiceName"]; ?></p>
+    <p>Bio: <?php echo $practice["bio"]; ?></p>
+    <p>Address: <?php echo $practice["streetAddress"] . ", " . $practice["city"] . ", " . $practice["country"] . " " . $practice["zipcode"]; ?></p>
+<?php else: ?>
+    <p>Looks like you haven't set up your practice yet. <a href="new-practice-view.php">Set up practice.</a></p>
+<?php endif; ?>
+
 
 
 </body>

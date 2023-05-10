@@ -65,8 +65,7 @@ if(isset($_SESSION["user_id"])){
         Inbox
     </h1>
     <form>
-        <label>Write a new message...</label> <br>
-        <button> <a href="new-message-view.html">New Message </a></button>
+        <button> <a href="new-message-view.html">New Meeting Request </a></button>
     </form>
 </div>
 
