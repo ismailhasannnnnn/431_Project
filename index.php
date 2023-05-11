@@ -25,9 +25,11 @@ if(isset($_SESSION["user_id"])){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/skeleton.css">
     <link rel="stylesheet" href="css/custom.css">
+
 
 
     <!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kimeiga/bahunya/dist/bahunya.min.css">-->
@@ -55,7 +57,7 @@ if(isset($_SESSION["user_id"])){
 
     <nav>
         <div class="divider"></div>
-        <a href="index.php" style="font-size:20px;" >DocMeet</a>
+        <a href="index.php" style="font-weight: bold;" >DocMeet Dashboard</a>
 
 
             <a href="edit-practice.php"> Your Practice</a>
@@ -67,92 +69,73 @@ if(isset($_SESSION["user_id"])){
     </nav>
 
     <div class="container main-card">
-        <h1 class="dash">Dashboard</h1>
 
 
         <div class="row">
-
             <div class="two-thirds column">
-                <h4>Practices and Providers Near You</h4>
-                <input type="search" placeholder="Search Practices by name or zipcode" style="height:3em; width:20em;">
-
+                <h1 class="dash">DockMeet Dashboard</h1>
             </div>
 
-            <div class="one-third column">
-                <h4>Quick Links </h4>
-                <a href="logout.php" class="button"> Log out </a>
-                <a href="logout.php" class="button"> Edit Profile </a>
-            </div>
-        </div>
+<!--            <div class="one-third column"> <br></div>-->
 
-        <div class="row">
-            <div class=" column">
-                <h4> Recent Invitations</h4>
+            <div class="one-third column" style="text-align:right; display:inline;">
 
-                <table class="u-full-width">
-                    <thead>
-                    <tr>
-                        <th>Message</th>
-                        <th>From</th>
-                        <th>Date</th>
-
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>Hey I was thinking we could meet up.</td>
-                        <td>jgonza1427@gmail.com</td>
-                        <td> 2 days ago</td>
-                    </tr>
-                    <tr>
-                        <td>Dwayne Johnson</td>
-                        <td>The Rock</td>
-                        <td>3 days ago</td>
-
-                    </tr>
-                    </tbody>
-                </table>
-        </div>
-            <div class="row">
-                <div class=" column">
-                    <h4> Personal Messages</h4>
-
-                    <table class="u-full-width">
-                        <thead>
-                        <tr>
-                            <th>Message</th>
-                            <th>From</th>
-                            <th>Date</th>
-
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>Hey I was thinking we could meet up.</td>
-                            <td>jgonza1427@gmail.com</td>
-                            <td> 2 days ago</td>
-                        </tr>
-                        <tr>
-                            <td>Dwayne Johnson</td>
-                            <td>The Rock</td>
-                            <td>3 days ago</td>
-
-                        </tr>
-                        </tbody>
-                    </table>
+                <div style="padding-top:5px;">
+                    <span class="profileName"> Logged in as <?= htmlspecialchars($user["Name"]) ?> </span>
+                    <a href="edit-profile.php"> <img src="/images/emptyavatar.png" class="icon"> </a>
                 </div>
 
 
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="six columns">
+
+                <div class="row">
+                    <h4> Search for Practices and Providers</h4>
+                    <div class="searchbar">
+                        <input type="search" placeholder="Search by Name or Zip..." >
+                        <button style="display:flex; align-items:center; justify-content:center;"> <i class="material-icons">search</i> </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="six columns">
+                <h4> Quick Links</h4>
+                <a href="new-message-view.html" class="button"> Create an Invite</a>
+                <a href="edit-practice.php" class="button"> Edit Practice</a>
+                <a href="logout.php" class="button"> Log Out</a>
+            </div>
+
+
+
+        </div>
+
+        <div class="row">
+
+            <div class="six columns">
+                <h4> Recent Invites</h4>
+            </div>
+
+            <div class="six columns">
+                <h4> Recent Messages</h4>
+            </div>
+
+
+
+        </div>
 
 
 
 
 
-                <!--        (--><?php //= htmlspecialchars($user["Type"]) ?><!--)-->
 
 
 
-    </div>
+
+
 
 
 

@@ -41,41 +41,55 @@ if($_SERVER["REQUEST_METHOD"] === "POST" ){
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <title> DocMeet </title>
+    <title> DocMeet Home </title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kimeiga/bahunya/dist/bahunya.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/skeleton.css">
+    <link rel="stylesheet" href="css/custom.css">
+
+    <!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kimeiga/bahunya/dist/bahunya.min.css">-->
 </head>
+
 
 <body>
     <nav>
-         <a href="index.php" >DocMeet</a>
-
-
-         <a href="#"> FAQ </a>
-
-
+        <div class="divider"></div>
+        <a href="index.php" style="font-weight: bold;" >DocMeet</a>
+        <a href="index.php">FAQ</a>
     </nav>
-    <h1> Login </h1>
-
-    <?php if ($is_invalid): ?>
-        <em> Invalid username or password</em>
-    <?php endif; ?>
-
-    <form method="post" >
-        <label for="email"> Email </label>
-        <input type="email" name="email" id="email"
-        value="<?= isset($_POST["email"]) ? $_POST["email"] : "" ?>">
-
-        <label for="password"> Password </label>
-        <input type="password" name="password" id="password">
-
-       <p> <button> Log in </button>
-       <a href="signup.html"> Sign up instead</p>
 
 
-    </form>
+    <div class="container main-card">
+
+        <h1 class="dash"> DockMeet Login </h1>
+
+        <?php if ($is_invalid): ?>
+            <em> Invalid username or password</em>
+        <?php endif; ?>
+
+        <form method="post" >
+            <label for="email"> Email </label>
+            <input type="email" name="email" id="email"
+                   value="<?= isset($_POST["email"]) ? $_POST["email"] : "" ?>">
+
+            <label for="password"> Password </label>
+            <input type="password" name="password" id="password">
+
+            <p> <button> Log in </button>
+                <a href="signup.html"> Sign up instead</p>
+
+
+        </form>
+
+
+
+    </div>
+
 
 </body>
 </html>

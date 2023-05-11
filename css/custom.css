@@ -1,4 +1,6 @@
-
+body{
+    background: #EFEFEF;
+}
 
 .centered-container {
     max-width: 960px;
@@ -139,31 +141,100 @@ body.main{
 
 
 h1.dash{
+    font-size:50px;
     padding:0px;
     color:orange;
+    font-weight: 600;
 }
 
 h4{
-    font-size:20px;
-
+    font-size:18px;
+    font-weight: 400;
     background-color: #EFEFEF;
     padding:10px;
     border-radius:10px;
+
 }
 
 
 .divider{
-    width: 1000px; /* Adjust to your desired width */
+    width: 1200px; /* Adjust to your desired width */
     height: 1.5px;
     background-color: lightgrey;
     position: absolute;
     bottom: 0;
-    }
+}
 
 .main-card{
     background-color:white;
     padding:50px;
+    padding-top:30px;
     margin-top:60px;
-    border-radius:20px;
+    border-radius:30px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+
 }
+
+.quicklink{
+    margin-top:12px;
+}
+
+.icon{
+    width:40px;
+    text-align:right;
+    vertical-align: middle;
+    margin-left:20px;
+
+}
+
+.icon:hover{
+    filter: brightness(50%);
+}
+
+
+.searchbar{
+    border: 1px solid lightgray;
+    margin-bottom:20px;
+    /*height: 3em;*/
+    border-radius:20px;
+    /*background: black;*/
+    display:flex;
+    padding:5px;
+    /*margin:20px;*/
+
+    }
+
+.searchbar input{
+    width:80%;
+    background:none;
+    /*vertical-align:middle;*/
+    height:2.5em;
+    margin:0;
+    /*width:20em;*/
+    border-radius: 20px;
+    border: none;
+
+
+}
+.searchbar input:focus{
+    border: none;
+}
+
+.searchbar button{
+    background:none;
+
+    padding:0px;
+    width:20%;
+    margin:0;
+    border:none;
+    float:right;
+
+
+
+}
+
+.profileName{
+    pointer-events:none;
+}
+
 
