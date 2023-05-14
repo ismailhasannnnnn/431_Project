@@ -19,29 +19,49 @@ if (isset($_SESSION["user_id"])) {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <title> DocMeet </title>
+    <title> DocMeet Home </title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kimeiga/bahunya/dist/bahunya.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/skeleton.css">
+    <link rel="stylesheet" href="css/custom.css">
+
+    <!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kimeiga/bahunya/dist/bahunya.min.css">-->
 </head>
 
-<body>
-<nav>
-    <a href="index.php" >DocMeet</a>
-    <?php if (isset($user)): ?>
-        <a href="edit-practice.php"> Your Practice</a>
-        <a href="message-view.php">Messages</a>
-        <a href="#"> </a>
-
-    <?php endif; ?>
-</nav>
-
-<h1> About You </h1>
-
-<p> Your Name:  <?= htmlspecialchars($user["Name"]) ?> </p>
+    <body>
 
 
-</body>
+        <nav>
+
+            <div class="divider"></div>
+            <a href="index.php">DocMeet Dashboard</a>
+
+
+            <a href="edit-practice.php" style="font-weight:bold;"> Your Practice</a>
+
+            <a href="message-view.php">Messages</a>
+
+            <a href="edit-profile.php"> Your Profile </a>
+
+        </nav>
+
+        <div class="container main-card">
+
+            <h1 class="dash"> About You </h1>
+
+            <p> Your Name:  <?= htmlspecialchars($user["Name"]) ?> </p>
+
+
+        </div>
+
+
+
+
+    </body>
 </html>
 

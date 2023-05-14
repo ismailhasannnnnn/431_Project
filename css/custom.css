@@ -238,3 +238,17 @@ h4{
 }
 
 
+.fade{
+    opacity: 1;
+    animation: fade 1s linear;
+}
+
+@keyframes fade {
+    0% { opacity: 0 }
+    100% { opacity: 1 }
+}
+
+
+#closeButton{
+    float: right;
+}
