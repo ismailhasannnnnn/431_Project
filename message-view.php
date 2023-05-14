@@ -4,23 +4,31 @@ ini_set('display_errors', 1);
 
 session_start();
 
-function getMessages() {
+function getMessages()
+{
     if (isset($_SESSION["user_email"])) {
-
         $mysqli = require __DIR__ . "/database.php";
-        $sql = "SELECT DISTINCT * FROM messages WHERE `to` = '{$_SESSION["user_email"]}'";
+        $sql = "SELECT m1.`from`, m1.content, m1.datetime FROM messages m1 
+                JOIN (
+                    SELECT `from`, MAX(datetime) as max_datetime
+                    FROM messages
+                    WHERE `to` = '{$_SESSION["user_email"]}'
+                    GROUP BY `from`
+                    ) 
+                m2 ON m1.`from` = m2.`from` AND m1.datetime = m2.max_datetime;";
         $result = $mysqli->query($sql);
 
         echo "<table>";
-        echo "<tr><th>Sender Email</th><th>Last Message</th><th>Reply...</th></tr>";
-        while($row = $result->fetch_assoc()) {
+        echo "<tr><th>Sender Email</th><th>Last Message</th><th>Date/Time Sent</th><th>Reply...</th></tr>";
+        while ($row = $result->fetch_assoc()) {
             $url = 'new-message-view.html?email=' . $row['from'];
-            echo "<tr><td>{$row['from']}</td><td>{$row['content']}</td><td><a class='button' href=$url>Reply</td></tr>";
+            echo "<tr><td>{$row['from']}</td><td>{$row['content']}</td><td>{$row['datetime']}</td><td><a class='button' href=$url>Reply</td></tr>";
         }
+        echo "</table>";
     }
 }
-?>
 
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -51,28 +59,9 @@ function getMessages() {
     <a href="edit-profile.php"> Your Profile </a>
 </nav>
 
-
 <div class="container main-card">
-    <h1 class="dash">Messages </h1>
+    <h1 class="dash">Received Messages</h1>
 
-
-<!--    <table>-->
-<!--        <tr>-->
-<!--            <th>Message</th>-->
-<!--            <th>From</th>-->
-<!--            <th>Time</th>-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--            <td>Hello Welcome to . . .</td>-->
-<!--            <td>Justin Gonzales</td>-->
-<!--            <td>2:21 PM</td>-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--            <td> Greetings, I was wondering . . </td>-->
-<!--            <td>Ismail Hasan</td>-->
-<!--            <td>12:00 PM</td>-->
-<!--        </tr>-->
-<!--    </table>-->
     <div>
         <?php
         getMessages();
@@ -83,25 +72,12 @@ function getMessages() {
         <button><a href="new-message-view.html">New Meeting Request </a></button>
     </div>
 
+</div>
 
-<!--    <div>-->
-<!--        <h1>-->
-<!--            Inbox-->
-<!--        </h1>-->
-<!---->
-<!--        --><?php //if (isset($message)): ?>
-<!--            <p> From:--><?php //= htmlspecialchars($message["from"]) ?><!--  --><?php //= htmlspecialchars($message["content"]) ?><!-- </p>-->
-<!--        --><?php //endif; ?>
-<!---->
-<!---->
-
-<!---->
-<!--    </div>-->
-
-
+<div class="container main-card">
+    <h1 class="dash">Sent Messages</h1>
 </div>
 
 
 </body>
 </html>
-

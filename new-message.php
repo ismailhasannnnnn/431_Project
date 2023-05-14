@@ -17,8 +17,9 @@ $mysqli = require __DIR__ . "/database.php";
 $fromEmail = $_SESSION["user_email"];
 $toEmail = $_POST["emailTo"];
 $content = $_POST["content"];
+$dateTimeVariable = date('Y-m-d H:i:s');
 
-$query = "INSERT INTO messages VALUES (?, ?, ?)";
+$query = "INSERT INTO messages VALUES (?, ?, ?, ?)";
 
 $stmt = $mysqli->stmt_init();
 
@@ -27,10 +28,11 @@ if( ! $stmt->prepare($query)){
     die("SQL error". $mysqli->error);
 }
 
-if(!$stmt->bind_param("sss",
+if(!$stmt->bind_param("ssss",
     $toEmail,
     $fromEmail,
-    $content)){
+    $content,
+    $dateTimeVariable)){
     die("Binding parameters failed:" . $stmt->error);
 }
 
