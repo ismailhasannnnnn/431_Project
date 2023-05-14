@@ -19,7 +19,7 @@ if (isset($_SESSION["user_id"])) {
 function getPractices($search)
 {
     $mysqli = require __DIR__ . "/database.php";
-    if(strlen($search) == 5 && ctype_digit($search)) {
+    if (strlen($search) == 5 && ctype_digit($search)) {
         $zipcode = $search;
         $sql = "SELECT * FROM practices WHERE zipcode='$zipcode'";
     } else {
@@ -30,7 +30,12 @@ function getPractices($search)
     echo "<table>";
     echo "<tr><th>Practice Name</th><th>Street Address</th><th>City</th><th>Zip Code</th><th>Country</th><th>Contact Button</th></tr>";
     while ($row = $result->fetch_assoc()) {
-        echo "<tr><td>{$row['practiceName']}</td><td>{$row['streetAddress']}</td><td>{$row['city']}</td><td>{$row['zipcode']}</td><td>{$row['country']}</td><td><button>Contact</button></td>";
+
+        $emailQuery = "SELECT email FROM users WHERE ID={$row['userID']}";
+        $emailResult = $mysqli->query($emailQuery);
+        $email = mysqli_fetch_array($emailResult)[0];
+        $contactUrl = 'new-message-view.html?email=' . $email;
+        echo "<tr><td>{$row['practiceName']}</td><td>{$row['streetAddress']}</td><td>{$row['city']}</td><td>{$row['zipcode']}</td><td>{$row['country']}</td><td><a href=$contactUrl class='button'>Contact</a></td>";
     }
     echo "</table>";
 
@@ -72,18 +77,18 @@ function getPractices($search)
 
 <?php if (isset($user)): ?>
 
-<nav>
-    <div class="divider"></div>
-    <a href="index.php" style="font-weight: bold;">DocMeet Dashboard</a>
+    <nav>
+        <div class="divider"></div>
+        <a href="index.php" style="font-weight: bold;">DocMeet Dashboard</a>
 
 
-    <a href="edit-practice.php"> Your Practice</a>
+        <a href="edit-practice.php"> Your Practice</a>
 
-    <a href="message-view.php">Messages</a>
+        <a href="message-view.php">Messages</a>
 
-    <a href="edit-profile.php"> Your Profile </a>
+        <a href="edit-profile.php"> Your Profile </a>
 
-</nav>
+    </nav>
 
 <div class="container main-card">
 
@@ -112,13 +117,10 @@ function getPractices($search)
 
             <div class="row">
                 <h4> Search for Practices and Providers</h4>
-                <div class="searchbar">
-                    <form action="" method="get">
-                        <input type="search" placeholder="Search by Name or Zip..." name="search" id="search">
-                        <button style="display:flex; align-items:center; justify-content:center;"><i
-                                class="material-icons">search</i></button>
-                    </form>
-                </div>
+                <form class="searchbar" action="" method="get">
+                    <input type="search" placeholder="Search by Name or Zip..." name="search" id="search">
+                    <button style="display:flex; align-items:center; justify-content:center;"><i class="material-icons">search</i></button>
+                </form>
             </div>
         </div>
 
@@ -175,14 +177,20 @@ function getPractices($search)
     <?php endif; ?>
 </div>
 
+
 <?php
-if (isset($_GET['search'])) {
-    echo "<div class='container main-card'>";
-    echo "  <div class='six columns'>";
+if(isset($_GET['search'])){
+    echo '<div class="container main-card">';
+    echo '    <div class="row">';
+    echo '        <div class="two columns"><br></div>';
+    echo '        <div class="eight columns">';
+    echo '            ';
     getPractices($_GET['search']);
     unset($_GET['search']);
-    echo "</div>";
-    echo "</div>";
+    echo '        </div>';
+    echo '        <div class="two columns"><br></div>';
+    echo '    </div>';
+    echo '</div>';
 }
 ?>
 
