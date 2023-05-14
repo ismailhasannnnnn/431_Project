@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
 
 session_start();
 
-function getMessages()
+function getReceivedMessages(): void
 {
     if (isset($_SESSION["user_email"])) {
         $mysqli = require __DIR__ . "/database.php";
@@ -15,7 +15,8 @@ function getMessages()
                     WHERE `to` = '{$_SESSION["user_email"]}'
                     GROUP BY `from`
                     ) 
-                m2 ON m1.`from` = m2.`from` AND m1.datetime = m2.max_datetime;";
+                m2 ON m1.`from` = m2.`from` AND m1.datetime = m2.max_datetime
+                ORDER BY datetime DESC";
         $result = $mysqli->query($sql);
 
         echo "<table>";
@@ -23,6 +24,30 @@ function getMessages()
         while ($row = $result->fetch_assoc()) {
             $url = 'new-message-view.html?email=' . $row['from'];
             echo "<tr><td>{$row['from']}</td><td>{$row['content']}</td><td>{$row['datetime']}</td><td><a class='button' href=$url>Reply</td></tr>";
+        }
+        echo "</table>";
+    }
+}
+
+function getSentMessages(): void
+{
+    if (isset($_SESSION["user_email"])) {
+        $mysqli = require __DIR__ . "/database.php";
+        $sql = "SELECT m1.`to`, m1.content, m1.datetime FROM messages m1 
+                JOIN (
+                    SELECT `to`, MAX(datetime) as max_datetime
+                    FROM messages
+                    GROUP BY `to`
+                    ) 
+                m2 ON m1.`to` = m2.`to` AND m1.datetime = m2.max_datetime
+                ORDER BY datetime DESC";
+        $result = $mysqli->query($sql);
+
+        echo "<table>";
+        echo "<tr><th>Recipient Email</th><th>Last Message</th><th>Date/Time Sent</th><th>Reply...</th></tr>";
+        while ($row = $result->fetch_assoc()) {
+            $url = 'new-message-view.html?email=' . $row['to'];
+            echo "<tr><td>{$row['to']}</td><td>{$row['content']}</td><td>{$row['datetime']}</td><td><a class='button' href=$url>Reply</td></tr>";
         }
         echo "</table>";
     }
@@ -64,7 +89,7 @@ function getMessages()
 
     <div>
         <?php
-        getMessages();
+        getReceivedMessages();
         ?>
     </div>
 
@@ -76,8 +101,14 @@ function getMessages()
 
 <div class="container main-card">
     <h1 class="dash">Sent Messages</h1>
-</div>
 
+    <div>
+        <?php
+        getSentMessages();
+        ?>
+    </div>
+
+</div>
 
 </body>
 </html>
