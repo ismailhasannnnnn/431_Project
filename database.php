@@ -2,8 +2,8 @@
 
 $host = "localhost";
 $dbname = "431_Project";
-$username = "root";
-$password = "";
+$username = "ismailhasan";
+$password = "Stripes12";
 
 $mysqli = new mysqli($host, $username, $password, $dbname);
 
