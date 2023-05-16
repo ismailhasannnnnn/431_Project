@@ -1,32 +1,9 @@
 <?php
 session_start();
 
-//function getConversation(): void
-//{
-//    if(isset($_GET['email'])) {
-//        $mysqli = require __DIR__ . "/database.php";
-//        $email = $_GET['email'];
-//        $user_email = $_SESSION['user_email'];
-//        $fromQuery = "SELECT `from`, `to`, content, datetime FROM messages WHERE `from`='$email' AND `to`='$user_email'";
-//        $fromResult = $mysqli->query($fromQuery);
-////        $fromArray = mysqli_fetch_array($fromResult);
-//
-//        $toQuery = "SELECT `from`, `to`, content, datetime FROM messages WHERE `to`='$email' AND `from`='$user_email'";
-//        $toResult = $mysqli->query($toQuery);
-////        $toArray = mysqli_fetch_array($toResult);
-//
-//        echo "<table>";
-//        echo "<tr><th>Sender Email</th><th>Last Message</th><th>Date/Time Sent</th><th>Reply...</th></tr>";
-//        while($row = $toResult->fetch_assoc()) {
-//            echo "<tr><td>{$row['from']}</td><td>{$row['content']}</td></tr>";
-//        }
-//        echo "</table>";
-//    }
-//}
-
 function getConversation(): void
 {
-    if(isset($_GET['email'])) {
+    if (isset($_GET['email'])) {
         $mysqli = require __DIR__ . "/database.php";
         $email = $_GET['email'];
         $user_email = $_SESSION['user_email'];
@@ -43,8 +20,10 @@ function getConversation(): void
                     border: 1px solid #ccc;
                     padding: 10px;
                     margin-bottom: 10px;
-                    max-height: 700px;
+                    max-height: 600px;
                     overflow-y: auto;
+                    display: flex;
+                    flex-direction: column-reverse;
                 }
 
                 .message-container {
@@ -67,7 +46,7 @@ function getConversation(): void
                 .recipient-message {
                     padding: 10px;
                     font-weight: bold;
-                    background-color: #a8a8a8;
+                    background-color: #e1e1e1;
                     align-self: flex-start;
                     border-radius: 5px;
                     word-break: break-word;
@@ -89,10 +68,22 @@ function getConversation(): void
                 }
             </style>';
 
+        $lastMessageQuery = "SELECT m1.`from`, m1.content, m1.datetime FROM messages m1
+                                                   JOIN (
+    SELECT `from`, MAX(datetime) as max_datetime
+    FROM messages
+    WHERE `to` = '$email' AND `from`='$user_email'
+    GROUP BY `from`
+)
+    m2 ON m1.`from` = m2.`from` AND m1.datetime = m2.max_datetime";
+        $lastMessageResult = mysqli_query($mysqli, $lastMessageQuery);
+        $lastMessage = mysqli_fetch_array($lastMessageResult)[1];
+
         // Start the conversation container
         echo '<div class="conversation">';
+        echo '<div>';
 
-        while($row = $result->fetch_assoc()) {
+        while ($row = $result->fetch_assoc()) {
             $sender = $row['from'];
             $message = $row['content'];
             $timestamp = $row['datetime'];
@@ -103,28 +94,17 @@ function getConversation(): void
 
             // Display the message with appropriate CSS class
             echo '<div class="message-container">';
-            echo '<div class="'.$cssClass.'">'.$message.'</div>';
-            echo '<div class="'.$cssTimestamp.'">'.$timestamp.'</div>';
+            echo '<div class="' . $cssClass . '">' . $message . '</div>';
+            echo '<div class="' . $cssTimestamp . '">' . $timestamp . '</div>';
+            if ($message == $lastMessage) {
+                echo '<div class="' . $cssTimestamp . '">Delivered</div>';
+            }
             echo '</div>';
         }
 
+        echo '</div>';
         // End the conversation container
         echo '</div>';
-    }
-}
-
-function sendMessage(): void
-{
-    if(isset($_POST['sendMessage'])) {
-        $mysqli = require __DIR__ . "/database.php";
-        $toEmail = $_GET['email'];
-        $user_email = $_SESSION['user_email'];
-        $message = $_POST['sendMessage'];
-        $dateTimeVariable = date('Y-m-d H:i:s');
-        $query = "INSERT INTO messages VALUES ('$toEmail', '$user_email', '$message', '$dateTimeVariable')";
-        $result = mysqli_query($mysqli, $query);
-//        echo "<script> window.location.reload(); </script>";
-        header("Refresh:0");
     }
 }
 
@@ -170,16 +150,23 @@ function sendMessage(): void
 
     <?php
         getConversation();
-        if(isset($_POST['sendMessage'])) {
-            sendMessage();
-            unset($_POST['sendMessage']);
-        }
     ?>
 
-    <form class="searchbar" action="" method="post">
+    <form class="searchbar" id="searchbarForm" action="send-message.php?" method="post" onsubmit="changeAction()">
         <input type="text"  name="sendMessage" id="sendMessage">
         <button style="display:flex; align-items:center; justify-content:center;"><i class="material-icons">arrow</i></button>
     </form>
+
+    <script>
+        document.getElementById("sendMessage").focus();
+        function changeAction() {
+            const url = window.location.search;
+            const params = new URLSearchParams(url);
+            const email = params.get('email');
+            document.getElementById("searchbarForm").action = "send-message.php?email=" + email;
+        }
+    </script>
+
 
     <?php else: ?>
 
