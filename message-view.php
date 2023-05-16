@@ -82,7 +82,7 @@ function getSentMessages(): void
 
     <a href="message-view.php" style="font-weight:bold;">Messages</a>
 
-    <a href="edit-profile.php"> Your Profile </a>
+
 </nav>
 
 <div class="container main-card">
