@@ -82,10 +82,11 @@ function getPractices($search)
         <a href="index.php" style="font-weight: bold;">DocMeet Dashboard</a>
 
 
+        <a href="appointment-view.php"> Appointments </a>
+
         <a href="edit-practice.php"> Your Practice</a>
 
         <a href="message-view.php">Messages</a>
-
 
 
 
