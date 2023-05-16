@@ -22,7 +22,7 @@ function getReceivedMessages(): void
         echo "<table>";
         echo "<tr><th>Sender Email</th><th>Last Message</th><th>Date/Time Sent</th><th>Reply...</th></tr>";
         while ($row = $result->fetch_assoc()) {
-            $url = 'new-message-view.html?email=' . $row['from'];
+            $url = 'conversation-view.php?email=' . $row['from'];
             echo "<tr><td>{$row['from']}</td><td>{$row['content']}</td><td>{$row['datetime']}</td><td><a class='button' href=$url>Reply</td></tr>";
         }
         echo "</table>";
@@ -37,6 +37,7 @@ function getSentMessages(): void
                 JOIN (
                     SELECT `to`, MAX(datetime) as max_datetime
                     FROM messages
+                    WHERE NOT `to` = '{$_SESSION["user_email"]}'
                     GROUP BY `to`
                     ) 
                 m2 ON m1.`to` = m2.`to` AND m1.datetime = m2.max_datetime
@@ -46,7 +47,7 @@ function getSentMessages(): void
         echo "<table>";
         echo "<tr><th>Recipient Email</th><th>Last Message</th><th>Date/Time Sent</th><th>Reply...</th></tr>";
         while ($row = $result->fetch_assoc()) {
-            $url = 'new-message-view.html?email=' . $row['to'];
+            $url = 'conversation-view.php?email=' . $row['to'];
             echo "<tr><td>{$row['to']}</td><td>{$row['content']}</td><td>{$row['datetime']}</td><td><a class='button' href=$url>Reply</td></tr>";
         }
         echo "</table>";
