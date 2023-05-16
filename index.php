@@ -86,7 +86,8 @@ function getPractices($search)
 
         <a href="message-view.php">Messages</a>
 
-        <a href="edit-profile.php"> Your Profile </a>
+
+
 
     </nav>
 

@@ -1,52 +1,87 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title> DocMeet </title>
+    <title> DocMeet Home </title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kimeiga/bahunya/dist/bahunya.min.css">
-</head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/skeleton.css">
+    <link rel="stylesheet" href="css/custom.css">
 
-<body>
+
+    <!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kimeiga/bahunya/dist/bahunya.min.css">-->
+</head>
+<body class="main">
+
 <nav>
-    <a href="index.php">DocMeet</a>
-    <a href="#"> FAQ </a>
+    <div class="divider"></div>
+    <a href="index.php" style="font-weight: bold;">DocMeet Dashboard</a>
+
+
+    <a href="edit-practice.php"> Your Practice</a>
+
+    <a href="message-view.php">Messages</a>
+
+
 </nav>
 
-<h1>
-    Create an Invitation
-</h1>
+<div class="container main-card">
 
-<form action="new-message.php" method="post" novalidate>
-
-    <div>
-        <label for="emailTo">Recipient Email: </label>
-        <input type="text" id="emailTo" name="emailTo"/>
-    </div>
-    <br>
-    <div>
-        <label for="content">Message Content: </label>
-        <textarea id="content" name="content" rows="8" cols="20"></textarea>
-    </div>
-
-    <div>
-        <label for="start">Start date:</label>
-
-        <input type="date" id="start" name="meeting-start"
-               value="2018-07-22"
-               min="2023-01-01" max="2099-12-31">
-    </div>
-    <br>
-
-    <div>
-        <label for="preferredFood">Preferred Food: </label>
-        <textarea id="preferredFood" name="content" rows="2" cols="20"></textarea>
-    </div>
-    <div>
-        <button>Submit</button>
-    </div>
+    <h1 class="dash">
+        Set up a meeting
+    </h1>
 
 
-</form>
+
+
+
+    <form action="new-message.php" method="post" novalidate>
+
+        <div>
+            <label for="emailTo">Recipient Email: </label>
+            <input type="text" id="emailTo" name="emailTo"/>
+        </div>
+        <br>
+        <div>
+            <label for="content">Message Content: </label>
+            <textarea id="content" name="content" rows="8" cols="20"></textarea>
+        </div>
+
+        <div>
+            <label for="start">Start date:</label>
+
+            <input type="date" id="start" name="meeting-start"
+                   value="2018-07-22"
+                   min="2023-01-01" max="2099-12-31">
+        </div>
+        <br>
+
+        <div>
+            <label for="preferredFood">Preferred Food: </label>
+            <textarea id="preferredFood" name="content" rows="2" cols="20"></textarea>
+        </div>
+        <div>
+            <button>Submit</button>
+        </div>
+
+
+    </form>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
 
 <script>
     const url = window.location.search;

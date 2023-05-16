@@ -42,11 +42,10 @@ if (isset($_SESSION["user_id"])) {
             <a href="index.php">DocMeet Dashboard</a>
 
 
-            <a href="edit-practice.php" style="font-weight:bold;"> Your Practice</a>
+            <a href="edit-practice.php" > Your Practice</a>
 
             <a href="message-view.php">Messages</a>
 
-            <a href="edit-profile.php"> Your Profile </a>
 
         </nav>
 

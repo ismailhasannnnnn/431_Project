@@ -252,3 +252,11 @@ h4{
 #closeButton{
     float: right;
 }
+
+.logout{
+    display:block;
+    margin:15px;
+    border-radius:10px;
+    background-color:white;
+
+}

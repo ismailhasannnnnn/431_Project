@@ -58,7 +58,6 @@ if(isset($_SESSION["user_id"])){
 
         <a href="message-view.php">Messages</a>
 
-        <a href="edit-profile.php"> Your Profile </a>
 
     </nav>
 
