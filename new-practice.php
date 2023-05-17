@@ -10,6 +10,9 @@ if(empty($_SESSION["user_email"])) {
 if(empty($_POST["practiceName"])) {
     die("missing practice name");
 }
+if(empty($_POST["practiceType"])) {
+    die("Please select a practice type.");
+}
 if(empty($_POST["bio"])) {
     die("missing bio");
 }
@@ -32,6 +35,7 @@ if(empty($_POST["logo"])) {
 
 
 
+
 //if(empty($_POST["content"])) {
 //    die("there's no message");
 //}
@@ -50,9 +54,10 @@ $zipcode = $_POST["postal-code"];
 $city = $_POST["city"];
 $country = $_POST["country"];
 $logo = $_POST["logo"];
+$practiceType = $_POST["practiceType"];
 
-$query = "INSERT INTO practices (userID, practiceName, bio, streetAddress,zipcode,city,country,logo)
-           VALUES (?,?,?,?,?,?,?,?)";
+$query = "INSERT INTO practices (userID, practiceName, bio, streetAddress,zipcode,city,country,logo, practiceType)
+           VALUES (?,?,?,?,?,?,?,?,?)";
 $stmt = $mysqli->stmt_init();
 
 
@@ -60,7 +65,7 @@ if( ! $stmt->prepare($query)){
     die("SQL error". $mysqli->error);
 }
 
-if(!$stmt->bind_param("ssssssss",
+if(!$stmt->bind_param("sssssssss",
     $userID,
     $practiceName,
     $bio,
@@ -68,7 +73,8 @@ if(!$stmt->bind_param("ssssssss",
     $zipcode,
     $city,
     $country,
-    $logo)){
+    $logo,
+    $practiceType)){
     die("Binding parameters failed:" . $stmt->error);
 }
 

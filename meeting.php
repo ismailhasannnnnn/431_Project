@@ -12,9 +12,7 @@ if(empty($_POST["emailTo"])) {
     die("recipient email isnt there");
 }
 
-if(empty($_POST["content"])) {
-    die("there's no message");
-}
+
 
 if(empty($_POST["meeting-date"])) {
     die("date isnt there");

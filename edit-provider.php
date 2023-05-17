@@ -79,9 +79,13 @@ if (isset($_SESSION["user_id"])) {
 
     <?php if (isset($provider)): ?>
 
-        <h5> Practice Name <span> <h3> <?php echo $provider["providerName"]; ?></h3>   </span> </h5>
+        <h5> Provider Name <span> <h3> <?php echo $provider["providerName"]; ?></h3>   </span> </h5>
+
+        <h5> Provider Type <span> <h3> <?php echo $provider["providerType"]; ?></h3>   </span> </h5>
+
 
         <h5> Bio or description  <span>  <h3> <?php echo $provider["bio"]; ?></h3></span>     </h5>
+
 
         <h5> Address
             <span>  <h3> <?php echo $provider["streetAddress"] . ", " . $provider["city"] . ", " . $provider["country"] . " " . $provider["zipcode"]; ?></h3>   </span>
@@ -132,7 +136,7 @@ if(isset($_POST['editProvider'])) {
     echo '        <input type="text" id="providerName" name="providerName" value="' . htmlspecialchars($provider["providerName"]) . '"/>';
     echo '';
     echo '';
-    echo '        <label for="bio">Practice Bio:  </label>';
+    echo '        <label for="bio">Provider Bio:  </label>';
     echo '        <textarea id="bio" name="bio" rows="2" cols="20" ></textarea>';
     echo '';
     echo '        <div>';

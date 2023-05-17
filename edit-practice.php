@@ -73,11 +73,11 @@ if(isset($_SESSION["user_id"])){
         <?php if (isset($practice)): ?>
 
             <h5> Practice Name <span> <h3> <?php echo $practice["practiceName"]; ?></h3>   </span> </h5>
-
-            <h5> Bio or description  <span>  <h3> <?php echo $practice["bio"]; ?></h3></span>     </h5>
+            <h5> Practice Type <span> <h3> <?php echo $practice["practiceType"]; ?></h3>   </span> </h5>
+            <h5> Bio or description  <span>  <h5> <?php echo $practice["bio"]; ?></h5></span>     </h5>
 
             <h5> Address
-                <span>  <h3> <?php echo $practice["streetAddress"] . ", " . $practice["city"] . ", " . $practice["country"] . " " . $practice["zipcode"]; ?></h3>   </span>
+                <span>  <h5> <?php echo $practice["streetAddress"] . ", " . $practice["city"] . ", " . $practice["country"] . " " . $practice["zipcode"]; ?></h5>   </span>
             </h5>
 
 

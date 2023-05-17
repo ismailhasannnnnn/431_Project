@@ -65,6 +65,29 @@ if(isset($_SESSION["user_id"])){
         <label for="practiceName">Practice Name  </label>
         <input type="text" id="practiceName" name="practiceName"/>
 
+        <label for="practiceType">Practice Type</label>
+        <select id="practiceType" name="practiceType">
+            <option value="General">Select a Practice Type</option>
+            <option value="Family">Family Practice</option>
+            <option value="Pediatric">Pediatric Practice</option>
+            <option value="Orthopedic">Orthopedic Practice</option>
+            <option value="Dermatology">Dermatology Practice</option>
+            <option value="Cardiology">Cardiology Practice</option>
+            <option value="Gastroenterology">Gastroenterology Practice</option>
+            <option value="Neurology">Neurology Practice</option>
+            <option value="Endocrinology">Endocrinology Practice</option>
+            <option value="Psychiatry">Psychiatry Practice</option>
+            <option value="Oncology">Oncology Practice</option>
+            <option value="Ophthalmology">Ophthalmology Practice</option>
+            <option value="Otolaryngology">Otolaryngology (ENT) Practice</option>
+            <option value="Urology">Urology Practice</option>
+            <option value="Radiology">Radiology Practice</option>
+            <option value="Anesthesiology">Anesthesiology Practice</option>
+            <option value="Surgery">Surgery Practice</option>
+            <option value="Physical_therapy">Physical Therapy Practice</option>
+            <option value="Dental">Dental Practice</option>
+        </select>
+
 
         <label for="bio">Practice Bio:  </label>
         <textarea id="bio" name="bio" rows="2" cols="20"></textarea>

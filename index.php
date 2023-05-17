@@ -27,30 +27,138 @@ if (isset($_SESSION["user_id"])) {
 
 }
 
+//function getPractices($search)
+//{
+//    $mysqli = require __DIR__ . "/database.php";
+//    if (strlen($search) == 5 && ctype_digit($search)) {
+//        $zipcode = $search;
+//        $sql = "SELECT * FROM practices WHERE zipcode='$zipcode'";
+//    } else {
+//        $name = $search;
+//        $sql = "SELECT * FROM practices WHERE practiceName='$name'";
+//    }
+//    $result = $mysqli->query($sql);
+//    echo "<table>";
+//    echo "<tr><th>Practice Name</th><th>Street Address</th><th>City</th><th>Zip Code</th><th>Country</th><th>Contact Button</th></tr>";
+//    while ($row = $result->fetch_assoc()) {
+//
+//        $emailQuery = "SELECT email FROM users WHERE ID={$row['userID']}";
+//        $emailResult = $mysqli->query($emailQuery);
+//        $email = mysqli_fetch_array($emailResult)[0];
+//        $contactUrl = 'new-message-view.php?email=' . $email;
+//        echo "<tr><td>{$row['practiceName']}</td><td>{$row['streetAddress']}</td><td>{$row['city']}</td><td>{$row['zipcode']}</td><td>{$row['country']}</td><td><a href=$contactUrl class='button'>Contact</a></td>";
+//    }
+//    echo "</table>";
+//
+//}
+
+//function getPractices($search)
+//{
+//    $mysqli = require __DIR__ . "/database.php";
+//
+//    if (strlen($search) == 5 && ctype_digit($search)) {
+//        $sql = "SELECT * FROM practices WHERE zipcode=?";
+//    } else {
+//        // Check if the search term matches a known practice type
+//        $practiceTypes = ['family', 'pediatric', 'orthopedic', 'dermatology', 'cardiology', 'gastroenterology', 'neurology', 'endocrinology', 'psychiatry', 'oncology', 'ophthalmology', 'otolaryngology', 'urology', 'radiology', 'anesthesiology', 'surgery', 'physical_therapy', 'dental'];
+//        if (in_array($search, $practiceTypes)) {
+//            $sql = "SELECT * FROM practices WHERE practiceType=?";
+//        } else {
+//            $sql = "SELECT * FROM practices WHERE practiceName=?";
+//        }
+//    }
+//
+//    // Prepare the statement
+//    $stmt = $mysqli->prepare($sql);
+//    $stmt->bind_param('s', $search);
+//
+//    // Execute the statement
+//    $stmt->execute();
+//    $result = $stmt->get_result();
+//
+//    echo "<table>";
+//    echo "<tr><th>Practice Name</th><th>Type</th><th>Street Address</th><th>City</th><th>Zip Code</th><th>Country</th><th>Contact Button</th></tr>";
+//    while ($row = $result->fetch_assoc()) {
+//
+//        $emailQuery = "SELECT email FROM users WHERE ID=?";
+//        $emailStmt = $mysqli->prepare($emailQuery);
+//        $emailStmt->bind_param('i', $row['userID']);
+//        $emailStmt->execute();
+//        $emailResult = $emailStmt->get_result();
+//        $email = $emailResult->fetch_array()[0];
+//        $contactUrl = 'new-message-view.php?email=' . $email;
+//        echo "<tr><td>{$row['practiceName']}</td><td>{$row['practiceType']}</td><td>{$row['streetAddress']}</td><td>{$row['city']}</td><td>{$row['zipcode']}</td><td>{$row['country']}</td><td><a href=$contactUrl class='button'>Contact</a></td>";
+//    }
+//    echo "</table>";
+//}
+
 function getPractices($search)
 {
     $mysqli = require __DIR__ . "/database.php";
-    if (strlen($search) == 5 && ctype_digit($search)) {
-        $zipcode = $search;
-        $sql = "SELECT * FROM practices WHERE zipcode='$zipcode'";
-    } else {
-        $name = $search;
-        $sql = "SELECT * FROM practices WHERE practiceName='$name'";
-    }
-    $result = $mysqli->query($sql);
-    echo "<table>";
-    echo "<tr><th>Practice Name</th><th>Street Address</th><th>City</th><th>Zip Code</th><th>Country</th><th>Contact Button</th></tr>";
-    while ($row = $result->fetch_assoc()) {
 
-        $emailQuery = "SELECT email FROM users WHERE ID={$row['userID']}";
-        $emailResult = $mysqli->query($emailQuery);
-        $email = mysqli_fetch_array($emailResult)[0];
+    if (strlen($search) == 5 && ctype_digit($search)) {
+        $sqlPractices = "SELECT * FROM practices WHERE zipcode=?";
+        $sqlProviders = "SELECT * FROM providers WHERE zipcode=?";
+    } else {
+        // Check if the search term matches a known practice type
+        $practiceTypes = ['family', 'pediatric', 'orthopedic', 'dermatology', 'cardiology', 'gastroenterology', 'neurology', 'endocrinology', 'psychiatry', 'oncology', 'ophthalmology', 'otolaryngology', 'urology', 'radiology', 'anesthesiology', 'surgery', 'physical_therapy', 'dental'];
+        if (in_array($search, $practiceTypes)) {
+            $sqlPractices = "SELECT * FROM practices WHERE practiceType=?";
+            $sqlProviders = "SELECT * FROM providers WHERE providerType=?";
+        } else {
+            $sqlPractices = "SELECT * FROM practices WHERE practiceName=?";
+            $sqlProviders = "SELECT * FROM providers WHERE providerName=?";
+        }
+    }
+
+    // Prepare the statements
+    $stmtPractices = $mysqli->prepare($sqlPractices);
+    $stmtPractices->bind_param('s', $search);
+
+    $stmtProviders = $mysqli->prepare($sqlProviders);
+    $stmtProviders->bind_param('s', $search);
+
+    // Execute the statements and fetch all rows
+    $stmtPractices->execute();
+    $resultPractices = $stmtPractices->get_result();
+    $practices = $resultPractices->fetch_all(MYSQLI_ASSOC);
+
+    $stmtProviders->execute();
+    $resultProviders = $stmtProviders->get_result();
+    $providers = $resultProviders->fetch_all(MYSQLI_ASSOC);
+
+    echo "<table>";
+    echo "<tr><th>Type</th><th>Name</th><th>Title</th><th>Street Address</th><th>City</th><th>Zip Code</th><th>Country</th><th>Contact</th></tr>";
+    foreach ($practices as $row) {
+        $emailQuery = "SELECT email FROM users WHERE ID=?";
+        $emailStmt = $mysqli->prepare($emailQuery);
+        $emailStmt->bind_param('i', $row['userID']);
+        $emailStmt->execute();
+        $emailResult = $emailStmt->get_result();
+        $email = $emailResult->fetch_array()[0];
         $contactUrl = 'new-message-view.php?email=' . $email;
-        echo "<tr><td>{$row['practiceName']}</td><td>{$row['streetAddress']}</td><td>{$row['city']}</td><td>{$row['zipcode']}</td><td>{$row['country']}</td><td><a href=$contactUrl class='button'>Contact</a></td>";
+        $inviteUrl = 'new-meeting-view.php?email=' . $email;
+
+        echo "<tr><td style='font-weight: bold;'>Practice</td><td>{$row['practiceName']}</td><td>{$row['practiceType']}</td><td>{$row['streetAddress']}</td><td>{$row['city']}</td><td>{$row['zipcode']}</td><td>{$row['country']}</td><td><a href=$contactUrl class='button'>Contact</a><a href=$inviteUrl class='button'>&nbsp Invite &nbsp   </a></td></tr>";
+    }
+
+    foreach ($providers as $row) {
+        $emailQuery = "SELECT email FROM users WHERE ID=?";
+        $emailStmt = $mysqli->prepare($emailQuery);
+        $emailStmt->bind_param('i', $row['userID']);
+        $emailStmt->execute();
+        $emailResult = $emailStmt->get_result();
+        $email = $emailResult->fetch_array()[0];
+        $contactUrl = 'new-message-view.php?email=' . $email;
+        $inviteUrl = 'new-meeting-view.php?email=' . $email;
+
+        echo "<tr><td style='font-weight: bold;'>Provider</td><td>{$row['providerName']}</td><td>{$row['providerType']}</td><td>{$row['streetAddress']}</td><td>{$row['city']}</td><td>{$row['zipcode']}</td><td>{$row['country']}</td><td><a href=$contactUrl class='button'>Contact</a><a href=$inviteUrl class='button'>&nbsp Invite &nbsp</a></td></tr>";
     }
     echo "</table>";
-
 }
+
+
+
 
 ?>
 
@@ -135,7 +243,7 @@ function getPractices($search)
             <div class="row">
                 <h4> Search for Practices and Providers</h4>
                 <form class="searchbar" action="" method="get">
-                    <input type="search" placeholder="Search by Name or Zip..." name="search" id="search">
+                    <input type="search" placeholder="Search by Name, Zip, or Type..." name="search" id="search">
                     <button style="display:flex; align-items:center; justify-content:center;"><i class="material-icons">search</i></button>
                 </form>
             </div>
@@ -232,13 +340,13 @@ function getPractices($search)
 if(isset($_GET['search'])){
     echo '<div class="container main-card">';
     echo '    <div class="row">';
-    echo '        <div class="two columns"><br></div>';
-    echo '        <div class="eight columns">';
+//    echo '        <div class="one column"><br></div>';
+    echo '        <div class="twelve columns">';
     echo '            ';
     getPractices($_GET['search']);
     unset($_GET['search']);
     echo '        </div>';
-    echo '        <div class="two columns"><br></div>';
+//    echo '        <div class="one column"><br></div>';
     echo '    </div>';
     echo '</div>';
 }

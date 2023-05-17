@@ -62,10 +62,37 @@ if(isset($_SESSION["user_id"])){
 
         <h1 class="dash"> Register your Provider</h1>
 
-        <label for="providerName">Practice Name  </label>
+        <label for="providerName">Provider Name  </label>
         <input type="text" id="providerName" name="providerName"/>
 
-
+        <label for="providerType">Provider Type</label>
+        <select id="providerType" name="providerType">
+            <option value="">Select a Provider Type</option>
+            <option value="General">General Practitioner</option>
+            <option value="Cardiologist">Cardiologist</option>
+            <option value="Dermatologist">Dermatologist</option>
+            <option value="Neurologist">Neurologist</option>
+            <option value="Psychiatrist">Psychiatrist</option>
+            <option value="Physical_therapist">Physical Therapist</option>
+            <option value="Surgeon">Surgeon</option>
+            <option value="Orthopedist">Orthopedist</option>
+            <option value="Pediatrician">Pediatrician</option>
+            <option value="Gastroenterologist">Gastroenterologist</option>
+            <option value="Endocrinologist">Endocrinologist</option>
+            <option value="Oncologist">Oncologist</option>
+            <option value="Urologist">Urologist</option>
+            <option value="Radiologist">Radiologist</option>
+            <option value="Anesthesiologist">Anesthesiologist</option>
+            <option value="Ophthalmologist">Ophthalmologist</option>
+            <option value="Otolaryngologist">Otolaryngologist (ENT Specialist)</option>
+            <option value="Gynecologist">Gynecologist</option>
+            <option value="Psychologist">Psychologist</option>
+            <option value="Nurse_practitioner">Nurse Practitioner</option>
+            <option value="Physician_assistant">Physician Assistant</option>
+            <option value="Chiropractor">Chiropractor</option>
+            <option value="Dietitian">Dietitian</option>
+            <option value="Pharmacist">Pharmacist</option>
+        </select>
         <label for="bio">Practice Bio:  </label>
         <textarea id="bio" name="bio" rows="2" cols="20"></textarea>
 

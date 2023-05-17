@@ -10,6 +10,9 @@ if(empty($_SESSION["user_email"])) {
 if(empty($_POST["providerName"])) {
     die("missing provider name");
 }
+if(empty($_POST["providerType"])) {
+    die("missing provider name");
+}
 if(empty($_POST["bio"])) {
     die("missing bio");
 }
@@ -36,23 +39,25 @@ $streetAddress = $_POST["street-address"];
 $zipcode = $_POST["postal-code"];
 $city = $_POST["city"];
 $country = $_POST["country"];
+$providerType = $_POST["providerType"];
 
-$query = "INSERT INTO providers (userID, providerName, bio, streetAddress,zipcode,city,country)
-           VALUES (?,?,?,?,?,?,?)";
+$query = "INSERT INTO providers (userID, providerName, bio, streetAddress,zipcode,city,country, providerType)
+           VALUES (?,?,?,?,?,?,?,?)";
 $stmt = $mysqli->stmt_init();
 
 if( ! $stmt->prepare($query)){
     die("SQL error". $mysqli->error);
 }
 
-if(!$stmt->bind_param("sssssss",
+if(!$stmt->bind_param("ssssssss",
     $userID,
     $providerName,
     $bio,
     $streetAddress,
     $zipcode,
     $city,
-    $country)){
+    $country,
+    $providerType)){
     die("Binding parameters failed:" . $stmt->error);
 }
 
@@ -66,6 +71,6 @@ if ($stmt->errno) {
     echo "Error executing statement: " . $stmt->error;
 }else{
 
-    header("Location: edit-practice.php");
+    header("Location: edit-provider.php");
     exit;
 }

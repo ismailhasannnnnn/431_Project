@@ -109,7 +109,14 @@ if (isset($_SESSION["user_id"])) {
 
 </div>
 
-
+<script>
+    const url = window.location.search;
+    const urlParams = new URLSearchParams(url);
+    console.log(urlParams.get("email"));
+    if (urlParams.get("email") != null) {
+        document.getElementById("emailTo").value = urlParams.get("email");
+    }
+</script>
 
 
 </body>
