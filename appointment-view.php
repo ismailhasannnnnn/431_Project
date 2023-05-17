@@ -181,7 +181,7 @@ if(isset($_SESSION["user_email"])){
         <div class="seven columns">
 
             <?php if (!empty($meetings)) : ?>
-                <table style="width:50%;">
+                <table style="width:100%;">
                     <thead>
                     <tr>
                         <th>Meeting Name</th>
