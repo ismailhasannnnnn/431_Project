@@ -267,3 +267,16 @@ h4{
 
 
 }
+
+
+a{
+    color: orange;
+    text-decoration: none;
+}
+
+
+.meeting-name-cell {
+    word-wrap: break-word;
+    overflow-wrap: break-word;  /* This will do the same thing as word-wrap */
+    max-width: 200px;
+}

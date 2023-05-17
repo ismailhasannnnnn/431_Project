@@ -1,4 +1,25 @@
+<?php
+session_start();
+if (isset($_SESSION["user_id"])) {
 
+    $mysqli = require __DIR__ . "/database.php";
+
+    $sql = "SELECT * FROM users
+            WHERE ID = {$_SESSION["user_id"]}";
+
+    $result = $mysqli->query($sql);
+
+    $user = $result->fetch_assoc();
+
+
+
+
+
+}
+
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,12 +39,19 @@
 
 <nav>
     <div class="divider"></div>
-    <a href="index.php" style="font-weight: bold;">DocMeet Dashboard</a>
+    <a href="index.php">DocMeet Dashboard</a>
+
+    <a href="appointment-view.php"> Appointments </a>
 
 
-    <a href="edit-practice.php"> Your Practice</a>
+    <?php if ($user["Type"] == "provider") : ?>
+        <a href="edit-provider.php"> Provider Profile </a>
+    <?php else : ?>
+        <a href="edit-practice.php"> Your Practice</a>
+    <?php endif; ?>
 
     <a href="message-view.php">Messages</a>
+
 
 
 </nav>
@@ -31,7 +59,7 @@
 <div class="container main-card">
 
     <h1 class="dash">
-        Set up a meeting
+        Create a New Message
     </h1>
 
 
@@ -50,19 +78,16 @@
             <textarea id="content" name="content" rows="8" cols="20"></textarea>
         </div>
 
-        <div>
-            <label for="start">Start date:</label>
+<!--        <div>-->
+<!--            <label for="start">Start date:</label>-->
 
-            <input type="date" id="start" name="meeting-start"
-                   value="2018-07-22"
-                   min="2023-01-01" max="2099-12-31">
-        </div>
+<!--            <input type="date" id="start" name="meeting-start"-->
+<!--                   value="2018-07-22"-->
+<!--                   min="2023-01-01" max="2099-12-31">-->
+<!--        </div>-->
         <br>
 
-        <div>
-            <label for="preferredFood">Preferred Food: </label>
-            <textarea id="preferredFood" name="content" rows="2" cols="20"></textarea>
-        </div>
+
         <div>
             <button>Submit</button>
         </div>

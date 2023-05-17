@@ -39,10 +39,11 @@ if (isset($_SESSION["user_id"])) {
         <nav>
 
             <div class="divider"></div>
-            <a href="index.php">DocMeet Dashboard</a>
+            <a href="index.php" >DocMeet Dashboard</a>
 
+            <a href="appointment-view.php"> Appointments </a>
 
-            <a href="edit-practice.php" > Your Practice</a>
+            <a href="edit-practice.php"> Your Practice</a>
 
             <a href="message-view.php">Messages</a>
 
@@ -53,7 +54,13 @@ if (isset($_SESSION["user_id"])) {
 
             <h1 class="dash"> About You </h1>
 
-            <p> Your Name:  <?= htmlspecialchars($user["Name"]) ?> </p>
+
+            <h5> Your Name: <span style="font-weight:bold;"> <?= htmlspecialchars($user["Name"]) ?></span> </h5>
+            <h5> Your Email: <span style="font-weight:bold;"> <?= htmlspecialchars($user["Email"]) ?></span></h5>
+            <h5> Type:    <span style="font-weight:bold;"> <?= htmlspecialchars($user["Type"]) ?></span>     </h5>
+
+            <a href="logout.php" class="button"> Log Out</a>
+
 
 
         </div>

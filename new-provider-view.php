@@ -18,8 +18,6 @@ if(isset($_SESSION["user_id"])){
 ?>
 
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,7 +34,10 @@ if(isset($_SESSION["user_id"])){
     <!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kimeiga/bahunya/dist/bahunya.min.css">-->
 </head>
 
+
 <body>
+
+
 
 <nav>
     <div class="divider"></div>
@@ -52,18 +53,17 @@ if(isset($_SESSION["user_id"])){
     <?php endif; ?>
 
     <a href="message-view.php">Messages</a>
-
-
-
 </nav>
 
+
+
 <div class="container main-card">
-    <form action="new-practice.php" method="post" novalidate>
+    <form action="new-provider.php" method="post" novalidate>
 
-        <h1 class="dash"> Register your Practice</h1>
+        <h1 class="dash"> Register your Provider</h1>
 
-        <label for="practiceName">Practice Name  </label>
-        <input type="text" id="practiceName" name="practiceName"/>
+        <label for="providerName">Practice Name  </label>
+        <input type="text" id="providerName" name="providerName"/>
 
 
         <label for="bio">Practice Bio:  </label>
@@ -339,17 +339,8 @@ if(isset($_SESSION["user_id"])){
                 </select>
             </div>
 
-            <label for="logo">Logo:</label>
-
-            <input type="file"
-                   id="logo" name="logo"
-                   accept="image/png, image/jpeg">
-
-
 
         </div>
-
-
 
 
         <br>
@@ -363,10 +354,6 @@ if(isset($_SESSION["user_id"])){
 
 
 </div>
-
-
-
-
 
 </body>
 </html>

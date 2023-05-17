@@ -13,6 +13,17 @@ if (isset($_SESSION["user_id"])) {
 
     $user = $result->fetch_assoc();
 
+    $query = "SELECT * FROM `meetings` WHERE
+                              recipient = '{$_SESSION["user_email"]}'
+                            ORDER BY `date` DESC LIMIT 5
+                             ";
+
+    $meetingResult = $mysqli->query($query);
+
+    $recentMeetings = $meetingResult->fetch_all(MYSQLI_ASSOC);
+
+
+
 
 }
 
@@ -34,7 +45,7 @@ function getPractices($search)
         $emailQuery = "SELECT email FROM users WHERE ID={$row['userID']}";
         $emailResult = $mysqli->query($emailQuery);
         $email = mysqli_fetch_array($emailResult)[0];
-        $contactUrl = 'new-message-view.html?email=' . $email;
+        $contactUrl = 'new-message-view.php?email=' . $email;
         echo "<tr><td>{$row['practiceName']}</td><td>{$row['streetAddress']}</td><td>{$row['city']}</td><td>{$row['zipcode']}</td><td>{$row['country']}</td><td><a href=$contactUrl class='button'>Contact</a></td>";
     }
     echo "</table>";
@@ -80,11 +91,15 @@ function getPractices($search)
     <nav>
         <div class="divider"></div>
         <a href="index.php" style="font-weight: bold;">DocMeet Dashboard</a>
-
-
+        
         <a href="appointment-view.php"> Appointments </a>
 
-        <a href="edit-practice.php"> Your Practice</a>
+
+        <?php if ($user["Type"] == "provider") : ?>
+            <a href="edit-provider.php"> Provider Profile </a>
+        <?php else : ?>
+            <a href="edit-practice.php"> Your Practice</a>
+        <?php endif; ?>
 
         <a href="message-view.php">Messages</a>
 
@@ -128,9 +143,9 @@ function getPractices($search)
 
         <div class="six columns">
             <h4> Quick Links</h4>
-            <a href="new-message-view.html" class="button"> Create an Invite</a>
+            <a href="new-meeting-view.php" class="button"> Create an Invite</a>
+            <a href="new-message-view.php" class="button"> New Message</a>
             <a href="edit-practice.php" class="button"> Edit Practice</a>
-            <a href="logout.php" class="button"> Log Out</a>
         </div>
 
 
@@ -140,7 +155,40 @@ function getPractices($search)
 
         <div class="six columns">
             <h4> Recent Invites</h4>
+
+
+                <?php if (!empty($recentMeetings)) : ?>
+                    <table style="width:100%;">
+                        <thead>
+                        <tr>
+                            <th>Meeting Name</th>
+                            <th>Date</th>
+                            <th>Time</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($recentMeetings as $meeting) : ?>
+                            <tr>
+                                <td class="meeting-name-cell"><a href="view-meeting.php?meeting_id=<?php echo $meeting['meeting_ID']; ?>"><?php echo $meeting['name']; ?></a></td>
+                                <td><?php echo $meeting['date']; ?></td>
+                                <td><?php echo $meeting['Time']; ?></td>
+
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                <?php else : ?>
+                    <p>No recent invites found.</p>
+                <?php endif; ?>
+
+
+
+
         </div>
+
+
+
 
         <div class="six columns">
             <h4> Recent Messages</h4>
