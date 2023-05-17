@@ -72,6 +72,10 @@ if (isset($_SESSION["user_id"])) {
       <input type="text" id="meetingName" name="meetingName">
     </div>
 
+      <div>
+          <label for="meetingContent">Message: </label>
+          <textarea id="meetingContent" name="meetingContent" rows="2" cols="20"></textarea>
+      </div>
 
     <br>
 

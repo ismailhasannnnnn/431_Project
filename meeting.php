@@ -12,7 +12,9 @@ if(empty($_POST["emailTo"])) {
     die("recipient email isnt there");
 }
 
-
+if(empty($_POST["emailTo"])) {
+    die("Message isn't there");
+}
 
 if(empty($_POST["meeting-date"])) {
     die("date isnt there");
@@ -29,6 +31,10 @@ if(empty($_POST["meetingName"])) {
 if(empty($_POST["food"])) {
     die("Please type your preferred food");
 }
+if(empty($_POST["meetingContent"])) {
+    die("Please type a message");
+}
+
 
 
 
@@ -39,15 +45,15 @@ $mysqli = require __DIR__ . "/database.php";
 
 $fromEmail = $_SESSION["user_email"];
 $toEmail = $_POST["emailTo"];
-$content = $_POST["content"];
 $date = $_POST["meeting-date"];
 $time = $_POST["meeting-time"];
 $meetingName = $_POST['meetingName'];
 $favoriteFood = $_POST['food'];
 $accepted = 0;
+$meetingContent = $_POST['meetingContent'];
 
-$query = "INSERT INTO meetings (name, date, time, sender,recipient,favoriteFood, accepted)
-            values (?, ?, ?, ?, ?, ?, ?)";
+$query = "INSERT INTO meetings (name, date, time, sender,recipient,favoriteFood, accepted, messageContent)
+            values (?, ?, ?, ?, ?, ?, ?, ?)";
 
 
 $stmt = $mysqli->stmt_init();
@@ -57,14 +63,15 @@ if( ! $stmt->prepare($query)){
     die("SQL error". $mysqli->error);
 }
 
-if(!$stmt->bind_param("sssssss",
+if(!$stmt->bind_param("ssssssss",
     $meetingName,
     $date,
     $time,
     $fromEmail,
     $toEmail,
     $favoriteFood,
-    $accepted
+    $accepted,
+    $meetingContent
     )){
 
     die("Binding parameters failed:" . $stmt->error);

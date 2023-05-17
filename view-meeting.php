@@ -115,12 +115,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <div class="container main-card">
 
-    <h1 class="dash"> <?= htmlspecialchars($meeting["name"]) ?> </h1>
+    <h1 class="dash cut"> <?= htmlspecialchars($meeting["name"]) ?> </h1>
     <h4> Date: <span style="font-weight: bold;"><?= htmlspecialchars($meeting["date"]) ?> </span> </h4>
     <h4> Time: <span style="font-weight: bold;"><?= htmlspecialchars($meeting["Time"]) ?> </span> </h4>
     <h4> Participants: <span style="font-weight: bold;">  <?= htmlspecialchars($meeting["sender"]) ?> and  <?= htmlspecialchars($meeting["recipient"]) ?>    </span></h4>
+    <h5 class="cut"> Message: <span style="font-weight: bold;"><?= htmlspecialchars($meeting["messageContent"]) ?> </span> </h5>
 
-    <h4> Preferred Foods: <span style="font-weight: bold;"><?= htmlspecialchars($meeting["favoriteFood"]) ?> </span></h4>
+    <h5> Preferred Foods: <span style="font-weight: bold;"><?= htmlspecialchars($meeting["favoriteFood"]) ?> </span></h5>
+
 
     <form id="editFoodForm" method="POST" action="">
         <label for="newFood">Edit Preferred Food:</label>

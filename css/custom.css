@@ -280,3 +280,10 @@ a{
     overflow-wrap: break-word;  /* This will do the same thing as word-wrap */
     max-width: 200px;
 }
+
+.cut{
+    word-wrap: break-word;
+    overflow-wrap: break-word;  /* This will do the same thing as word-wrap */
+    max-width: 1200px;
+
+}
