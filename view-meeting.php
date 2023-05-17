@@ -33,6 +33,45 @@ $result = $stmt->get_result();
 
 $meeting = $result->fetch_assoc();
 
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $newFood = $_POST['newFood'];
+
+    $updateQuery = "UPDATE `meetings` SET `favoriteFood` = ? WHERE `meeting_ID` = ?";
+
+    $stmtUpdate = $mysqli->stmt_init();
+
+    if (!$stmtUpdate->prepare($updateQuery)) {
+        die("SQL error: " . $mysqli->error);
+    }
+
+    if (!$stmtUpdate->bind_param("si", $newFood, $meeting_id)) {
+        die("Binding parameters failed: " . $stmtUpdate->error);
+    }
+
+    if (!$stmtUpdate->execute()) {
+        die("Execution failed: " . $stmtUpdate->error);
+    }
+
+    $stmtUpdate->close(); // close the update statement
+
+    // Since the meeting info was updated, fetch it again
+    if (!$stmt->prepare($query)) {
+        die("SQL error: " . $mysqli->error);
+    }
+
+    if (!$stmt->bind_param("i", $meeting_id)) {
+        die("Binding parameters failed: " . $stmt->error);
+    }
+
+    if (!$stmt->execute()) {
+        die("Execution failed: " . $stmt->error);
+    }
+
+    $result = $stmt->get_result();
+    $meeting = $result->fetch_assoc();
+}
+
+
 ?>
 
 
@@ -82,6 +121,13 @@ $meeting = $result->fetch_assoc();
     <h4> Participants: <span style="font-weight: bold;">  <?= htmlspecialchars($meeting["sender"]) ?> and  <?= htmlspecialchars($meeting["recipient"]) ?>    </span></h4>
 
     <h4> Preferred Foods: <span style="font-weight: bold;"><?= htmlspecialchars($meeting["favoriteFood"]) ?> </span></h4>
+
+    <form id="editFoodForm" method="POST" action="">
+        <label for="newFood">Edit Preferred Food:</label>
+        <input type="text" id="newFood" name="newFood" value="<?= htmlspecialchars($meeting["favoriteFood"]) ?>">
+        <input type="submit" value="Update">
+    </form>
+
 
 
 </div>

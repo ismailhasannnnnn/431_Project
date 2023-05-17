@@ -122,7 +122,7 @@ function getSentMessages(): void
     </div>
 
     <div>
-        <button><a href="new-message-view.php">New Meeting Request </a></button>
+        <button><a href="new-message-view.php">New Message </a></button>
     </div>
 
 </div>
