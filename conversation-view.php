@@ -1,5 +1,7 @@
 <?php
 session_start();
+ini_set('display_errors', 0);
+
 
 function getConversation(): void
 {
@@ -18,28 +20,43 @@ function getConversation(): void
                             JOIN (
                                 SELECT `from`, MAX(datetime) as max_datetime
                                 FROM messages
-                                WHERE `to` = '$email' AND `from`='$user_email'
+                                WHERE `to` = ? AND `from` = ?
                                 GROUP BY `from`
                                 )
                             m2 ON m1.`from` = m2.`from` AND m1.datetime = m2.max_datetime";
-        $lastMessageResult = mysqli_query($mysqli, $lastMessageQuery);
+
+        $stmt = $mysqli->prepare($lastMessageQuery);
+        $stmt->bind_param("ss", $email, $user_email);
+        $stmt->execute();
+        $lastMessageResult = $stmt->get_result();
         $lastMessage = mysqli_fetch_array($lastMessageResult)[1];
 
         $lastRecipientMessageQuery = "SELECT m1.`from`, m1.content, m1.datetime, m1.`read`, m1.time_read FROM messages m1
                             JOIN (
                                 SELECT `from`, MAX(datetime) as max_datetime
                                 FROM messages
-                                WHERE `to` = '$user_email' AND `from`='$email'
+                                WHERE `to` = ? AND `from` = ?
                                 GROUP BY `from`
                                 )
                             m2 ON m1.`from` = m2.`from` AND m1.datetime = m2.max_datetime";
-        $lastRecipientMessageResult = mysqli_query($mysqli, $lastRecipientMessageQuery);
-        $lastRecipientMessage = mysqli_fetch_array($lastRecipientMessageResult)[1];
 
+        $stmt = $mysqli->prepare($lastRecipientMessageQuery);
+        $stmt->bind_param("ss", $user_email, $email);
+        $stmt->execute();
+        $lastRecipientMessageResult = $stmt->get_result();
+        $lastRecipientMessage = mysqli_fetch_array($lastRecipientMessageResult)[1];
         $dateTimeVariable = date('Y-m-d H:i:s');
-        $updateReadReceiptQuery = "UPDATE messages SET `read` = true, time_read='$dateTimeVariable' 
-                                    WHERE content='$lastRecipientMessage' AND `to` = '$user_email' AND `from`='$email'";
-        $mysqli->query($updateReadReceiptQuery);
+
+        // Prepare the SQL statement
+        $updateReadReceiptQuery = "UPDATE messages SET `read` = true, time_read = ? 
+                          WHERE content = ? AND `to` = ? AND `from` = ?";
+
+        // Prepare and bind the parameters
+        $stmt = $mysqli->prepare($updateReadReceiptQuery);
+        $stmt->bind_param('ssss', $dateTimeVariable, $lastRecipientMessage, $user_email, $email);
+
+        // Execute the prepared statement
+        $stmt->execute();
 
         // CSS styles for the conversation
         echo '<style>

@@ -37,7 +37,7 @@ function getSentMessages(): void
                 JOIN (
                     SELECT `to`, MAX(datetime) as max_datetime
                     FROM messages
-                    WHERE NOT `to` = '{$_SESSION["user_email"]}'
+                    WHERE NOT `to` = '{$_SESSION["user_email"]}' AND `from` = '{$_SESSION["user_email"]}'
                     GROUP BY `to`
                     ) 
                 m2 ON m1.`to` = m2.`to` AND m1.datetime = m2.max_datetime
