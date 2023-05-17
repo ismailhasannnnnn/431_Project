@@ -167,14 +167,21 @@ if(isset($_SESSION["user_email"])){
 </nav>
 <div class="container main-card">
 
+    <div class="row">
+        <h1 class="dash"> Your Appointments</h1>
+
+
+    </div>
+
+
+
 
     <div class="row">
 
         <div class="seven columns">
-            <h1 class="dash"> Your Appointments</h1>
 
             <?php if (!empty($meetings)) : ?>
-                <table>
+                <table style="width:50%;">
                     <thead>
                     <tr>
                         <th>Meeting Name</th>
@@ -186,7 +193,7 @@ if(isset($_SESSION["user_email"])){
                     <tbody>
                     <?php foreach ($meetings as $meeting) : ?>
                         <tr>
-                            <td>  <a href="view-meeting.php?meeting_id=<?php echo $meeting['meeting_ID']; ?>"> <?php echo $meeting['name']; ?>     </a>     </td>
+                            <td class="meeting-name-cell">  <a href="view-meeting.php?meeting_id=<?php echo $meeting['meeting_ID']; ?>"> <?php echo $meeting['name']; ?>     </a>     </td>
                             <td><?php echo $meeting['date']; ?></td>
                             <td><?php echo $meeting['Time']; ?></td>
 
@@ -222,6 +229,8 @@ if(isset($_SESSION["user_email"])){
             <a href="new-meeting-view.html" class="button"> Set up a meeting</a>
 
         </div>
+
+
 
         <div class="five columns">
 

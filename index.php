@@ -9,6 +9,16 @@ if (isset($_SESSION["user_id"])) {
     $sql = "SELECT * FROM users
             WHERE ID = {$_SESSION["user_id"]}";
 
+
+    $query = "SELECT * FROM `meetings` WHERE
+                              recipient = '{$_SESSION["user_email"]}'
+                            ORDER BY `date` DESC LIMIT 5
+                             ";
+
+    $meetingResult = $mysqli->query($query);
+
+    $recentMeetings = $meetingResult->fetch_all(MYSQLI_ASSOC);
+
     $result = $mysqli->query($sql);
 
     $user = $result->fetch_assoc();
@@ -127,9 +137,9 @@ function getPractices($search)
 
         <div class="six columns">
             <h4> Quick Links</h4>
-            <a href="new-message-view.html" class="button"> Create an Invite</a>
+            <a href="new-meeting-view.html" class="button"> Create an Invite</a>
+            <a href="new-message-view.html" class="button"> New Message</a>
             <a href="edit-practice.php" class="button"> Edit Practice</a>
-            <a href="logout.php" class="button"> Log Out</a>
         </div>
 
 
@@ -139,7 +149,40 @@ function getPractices($search)
 
         <div class="six columns">
             <h4> Recent Invites</h4>
+
+
+                <?php if (!empty($recentMeetings)) : ?>
+                    <table style="width:100%;">
+                        <thead>
+                        <tr>
+                            <th>Meeting Name</th>
+                            <th>Date</th>
+                            <th>Time</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($recentMeetings as $meeting) : ?>
+                            <tr>
+                                <td class="meeting-name-cell"><a href="view-meeting.php?meeting_id=<?php echo $meeting['meeting_ID']; ?>"><?php echo $meeting['name']; ?></a></td>
+                                <td><?php echo $meeting['date']; ?></td>
+                                <td><?php echo $meeting['Time']; ?></td>
+
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                <?php else : ?>
+                    <p>No recent invites found.</p>
+                <?php endif; ?>
+
+
+
+
         </div>
+
+
+
 
         <div class="six columns">
             <h4> Recent Messages</h4>

@@ -52,12 +52,13 @@ if(isset($_SESSION["user_id"])){
     <nav>
 
         <div class="divider"></div>
-        <a href="index.php">DocMeet Dashboard</a>
+        <a href="index.php" >DocMeet Dashboard</a>
 
-        <a href="edit-practice.php" style="font-weight:bold;"> Your Practice</a>
+        <a href="appointment-view.php"> Appointments </a>
+
+        <a href="edit-practice.php" style="font-weight: bold;"> Your Practice</a>
 
         <a href="message-view.php">Messages</a>
-
 
     </nav>
 
@@ -70,9 +71,16 @@ if(isset($_SESSION["user_id"])){
 
 
         <?php if (isset($practice)): ?>
-            <p>Practice Name: <?php echo $practice["practiceName"]; ?></p>
-            <p>Bio: <?php echo $practice["bio"]; ?></p>
-            <p>Address: <?php echo $practice["streetAddress"] . ", " . $practice["city"] . ", " . $practice["country"] . " " . $practice["zipcode"]; ?></p>
+
+            <h5> Practice Name </h5> <h3> <?php echo $practice["practiceName"]; ?></h3>
+
+
+
+             <h5> Bio or description</h5>
+            <h3> <?php echo $practice["bio"]; ?></h3>
+
+            <h5> Address</h5>
+        <h3> <?php echo $practice["streetAddress"] . ", " . $practice["city"] . ", " . $practice["country"] . " " . $practice["zipcode"]; ?></h3>
 
 <!--            <a href="#"> Edit Practice</a>-->
 <!--            <button> Edit Practice </button>-->
