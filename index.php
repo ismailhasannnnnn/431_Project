@@ -80,8 +80,7 @@ function getPractices($search)
     <nav>
         <div class="divider"></div>
         <a href="index.php" style="font-weight: bold;">DocMeet Dashboard</a>
-
-
+        
         <a href="appointment-view.php"> Appointments </a>
 
         <a href="edit-practice.php"> Your Practice</a>

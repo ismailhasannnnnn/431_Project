@@ -5,16 +5,23 @@ ini_set('display_errors', 1);
 
     session_start();
 
-if(isset($_SESSION["user_id"])){
+if(isset($_SESSION["user_email"])){
 
     $mysqli = require __DIR__ . "/database.php";
 
     //Pull from meetings table
+    $query = "SELECT * FROM `meetings` WHERE
+                             sender = '{$_SESSION["user_email"]}'
+                             OR recipient = '{$_SESSION["user_email"]}'
+                             
+                             ";
 
+    $result = $mysqli->query($query);
 
-
+    $meetings = $result->fetch_all(MYSQLI_ASSOC);
 
 }
+
 
 ?>
 
@@ -31,6 +38,31 @@ if(isset($_SESSION["user_id"])){
     <link rel="stylesheet" href="css/skeleton.css">
     <link rel="stylesheet" href="css/custom.css">
     <script src="js/Calendar.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.delete-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    var meetingId = this.dataset.meetingId;
+
+                    fetch('delete-meeting.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: 'meeting_id=' + encodeURIComponent(meetingId),
+                    })
+                        .then(response => response.text())
+                        .then(result => {
+                            console.log(result);
+                            location.reload(); // Reload the page to update the table
+                        })
+                        .catch(error => console.log('Error:', error));
+                });
+            });
+        });
+    </script>
+
+
 
 </head>
 
@@ -61,7 +93,51 @@ if(isset($_SESSION["user_id"])){
         <div class="one-half column">
             <h1 class="dash"> Your Appointments</h1>
 
+            <?php if (!empty($meetings)) : ?>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Meeting Name</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Actions</th> <!-- Add this line -->
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($meetings as $meeting) : ?>
+                        <tr>
+                            <td>  <a href="view-meeting.php?meeting_id=<?php echo $meeting['meeting_ID']; ?>"> <?php echo $meeting['name']; ?>     </a>     </td>
+                            <td><?php echo $meeting['date']; ?></td>
+                            <td><?php echo $meeting['Time']; ?></td>
+                            <td> <!-- Add this cell for the delete button -->
+                                <button class="delete-button" data-meeting-id="<?php echo $meeting['meeting_ID']; ?>">Delete</button>
+
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            <?php else : ?>
+                <p>No meetings found.</p>
+
+            <?php endif; ?>
+
+
+
+
+
+
+
+
+
+
+
+            <a href="new-meeting-view.html" class="button"> Set up a meeting</a>
+
         </div>
+
+
+
         <div class="one-half column">
             <div id='calendar'></div>
         </div>
@@ -72,6 +148,8 @@ if(isset($_SESSION["user_id"])){
 
 
 </div>
+
+
 
 
 
