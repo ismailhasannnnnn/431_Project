@@ -60,7 +60,7 @@ if(isset($_SESSION["user_id"])){
 <div class="container main-card">
     <form action="new-provider.php" method="post" novalidate>
 
-        <h1 class="dash"> Register your Provider</h1>
+        <h1 class="dash"> Register Provider</h1>
 
         <label for="providerName">Provider Name  </label>
         <input type="text" id="providerName" name="providerName"/>

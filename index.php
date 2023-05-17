@@ -118,7 +118,7 @@ function getPractices($search)
         $sqlProviders = "SELECT * FROM providers WHERE zipcode=?";
     } else {
         // Check if the search term matches a known practice type
-        $practiceTypes = ['family', 'pediatric', 'orthopedic', 'dermatology', 'cardiology', 'gastroenterology', 'neurology', 'endocrinology', 'psychiatry', 'oncology', 'ophthalmology', 'otolaryngology', 'urology', 'radiology', 'anesthesiology', 'surgery', 'physical_therapy', 'dental'];
+        $practiceTypes = ['family', 'pediatric', 'orthopedic', 'dermatology', 'cardiology', 'gastroenterology', 'neurology', 'endocrinology', 'psychiatry', 'oncology', 'ophthalmology', 'otolaryngology', 'urology', 'radiology', 'anesthesiology', 'surgery', 'physical_therapy', 'dental', 'gastrology','radiology', 'radiologist'];
         if (in_array($search, $practiceTypes)) {
             $sqlPractices = "SELECT * FROM practices WHERE practiceType=?";
             $sqlProviders = "SELECT * FROM providers WHERE providerType=?";

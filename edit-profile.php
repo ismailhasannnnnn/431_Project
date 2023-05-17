@@ -36,19 +36,22 @@ if (isset($_SESSION["user_id"])) {
     <body>
 
 
-        <nav>
+    <nav>
+        <div class="divider"></div>
+        <a href="index.php" >DocMeet Dashboard</a>
 
-            <div class="divider"></div>
-            <a href="index.php" >DocMeet Dashboard</a>
+        <a href="appointment-view.php"> Appointments </a>
 
-            <a href="appointment-view.php"> Appointments </a>
 
+        <?php if ($user["Type"] == "provider") : ?>
+            <a href="edit-provider.php"> Provider Profile </a>
+        <?php else : ?>
             <a href="edit-practice.php"> Your Practice</a>
+        <?php endif; ?>
 
-            <a href="message-view.php">Messages</a>
+        <a href="message-view.php">Messages</a>
 
-
-        </nav>
+    </nav>
 
         <div class="container main-card">
 

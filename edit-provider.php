@@ -59,9 +59,9 @@ if (isset($_SESSION["user_id"])) {
 
 
     <?php if ($user["Type"] == "provider") : ?>
-        <a href="edit-provider.php"> Provider Profile </a>
+        <a href="edit-provider.php" style="font-weight:bold;"> Provider Profile </a>
     <?php else : ?>
-        <a href="edit-practice.php"> Your Practice</a>
+        <a href="edit-practice.php" style="font-weight:bold;"> Your Practice</a>
     <?php endif; ?>
 
     <a href="message-view.php">Messages</a>
