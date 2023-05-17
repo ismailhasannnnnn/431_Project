@@ -1,4 +1,25 @@
+<?php
+session_start();
+if (isset($_SESSION["user_id"])) {
 
+    $mysqli = require __DIR__ . "/database.php";
+
+    $sql = "SELECT * FROM users
+            WHERE ID = {$_SESSION["user_id"]}";
+
+    $result = $mysqli->query($sql);
+
+    $user = $result->fetch_assoc();
+
+
+
+
+
+}
+
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,12 +39,19 @@
 
 <nav>
     <div class="divider"></div>
-    <a href="index.php" style="font-weight: bold;">DocMeet Dashboard</a>
+    <a href="index.php">DocMeet Dashboard</a>
+
+    <a href="appointment-view.php"> Appointments </a>
 
 
-    <a href="edit-practice.php"> Your Practice</a>
+    <?php if ($user["Type"] == "provider") : ?>
+        <a href="edit-provider.php"> Provider Profile </a>
+    <?php else : ?>
+        <a href="edit-practice.php"> Your Practice</a>
+    <?php endif; ?>
 
     <a href="message-view.php">Messages</a>
+
 
 
 </nav>
@@ -59,10 +87,7 @@
 <!--        </div>-->
         <br>
 
-        <div>
-            <label for="preferredFood">Preferred Food: </label>
-            <textarea id="preferredFood" name="content" rows="2" cols="20"></textarea>
-        </div>
+
         <div>
             <button>Submit</button>
         </div>

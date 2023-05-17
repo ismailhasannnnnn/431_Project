@@ -45,7 +45,7 @@ function getPractices($search)
         $emailQuery = "SELECT email FROM users WHERE ID={$row['userID']}";
         $emailResult = $mysqli->query($emailQuery);
         $email = mysqli_fetch_array($emailResult)[0];
-        $contactUrl = 'new-message-view.html?email=' . $email;
+        $contactUrl = 'new-message-view.php?email=' . $email;
         echo "<tr><td>{$row['practiceName']}</td><td>{$row['streetAddress']}</td><td>{$row['city']}</td><td>{$row['zipcode']}</td><td>{$row['country']}</td><td><a href=$contactUrl class='button'>Contact</a></td>";
     }
     echo "</table>";
@@ -144,7 +144,7 @@ function getPractices($search)
         <div class="six columns">
             <h4> Quick Links</h4>
             <a href="new-meeting-view.php" class="button"> Create an Invite</a>
-            <a href="new-message-view.html" class="button"> New Message</a>
+            <a href="new-message-view.php" class="button"> New Message</a>
             <a href="edit-practice.php" class="button"> Edit Practice</a>
         </div>
 

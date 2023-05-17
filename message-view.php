@@ -4,6 +4,19 @@ ini_set('display_errors', 1);
 
 session_start();
 
+if (isset($_SESSION["user_id"])) {
+    $mysqli = require __DIR__ . "/database.php";
+
+
+
+    $sql = "SELECT * FROM users
+            WHERE ID = {$_SESSION["user_id"]}";
+
+    $result = $mysqli->query($sql);
+
+    $user = $result->fetch_assoc();
+}
+
 function getReceivedMessages(): void
 {
     if (isset($_SESSION["user_email"])) {
@@ -56,18 +69,6 @@ function getSentMessages(): void
 
 
 
-if (isset($_SESSION["user_id"])) {
-    $mysqli = require __DIR__ . "/database.php";
-
-
-
-    $sql = "SELECT * FROM users
-            WHERE ID = {$_SESSION["user_id"]}";
-
-    $result = $mysqli->query($sql);
-
-    $user = $result->fetch_assoc();
-}
 
 
 
@@ -121,7 +122,7 @@ if (isset($_SESSION["user_id"])) {
     </div>
 
     <div>
-        <button><a href="new-message-view.html">New Meeting Request </a></button>
+        <button><a href="new-message-view.php">New Meeting Request </a></button>
     </div>
 
 </div>
