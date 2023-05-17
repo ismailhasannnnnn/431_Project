@@ -23,6 +23,23 @@ if (isset($_SESSION["user_id"])) {
     $recentMeetings = $meetingResult->fetch_all(MYSQLI_ASSOC);
 
 
+    $sqlMessages = "SELECT  `from`, LEFT(`content`, 20) AS `short_content`, `datetime` FROM `messages`
+                WHERE (`to` = '{$_SESSION["user_email"]}' AND `datetime` IN (
+                    SELECT MAX(`datetime`) FROM `messages`
+                    WHERE `to` = '{$_SESSION["user_email"]}'
+                    GROUP BY `from`)
+                )
+                ORDER BY `datetime` DESC
+                LIMIT 5";
+
+
+
+    $messagesResult = $mysqli->query($sqlMessages);
+
+    $recentMessages = $messagesResult->fetch_all(MYSQLI_ASSOC);
+
+
+
 
 
 }
@@ -175,23 +192,10 @@ function getPractices($search)
     <link rel="stylesheet" href="css/custom.css">
 
 
-    <!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kimeiga/bahunya/dist/bahunya.min.css">-->
 </head>
 <body class="main">
 
-<!--<nav>-->
-<!--    <a href="index.php" >DocMeet</a>-->
-<!--    --><?php //if (!isset($user)): ?>
-<!--        <a href="#"> FAQ </a>-->
-<!--    --><?php //endif; ?>
-<!--    --><?php //if (isset($user)): ?>
-<!--        <a href="edit-practice.php"> Your Practice</a>-->
-<!--        <a href="edit-profile.php"> Your Profile </a>-->
-<!---->
-<!--        <a href="message-view.php">Messages</a>-->
-<!--    --><?php //endif; ?>
-<!--</nav>-->
-<!---->
+
 
 
 <?php if (isset($user)): ?>
@@ -210,8 +214,6 @@ function getPractices($search)
         <?php endif; ?>
 
         <a href="message-view.php">Messages</a>
-
-
 
     </nav>
 
@@ -300,6 +302,27 @@ function getPractices($search)
 
         <div class="six columns">
             <h4> Recent Messages</h4>
+
+
+            <?php if (!empty($recentMessages)) : ?>
+            <table style="width: 100%;">
+                    <tr>
+                        <th>Sender</th>
+                        <th>Message</th>
+                        <th>Date</th>
+                    </tr>
+                    <?php foreach ($recentMessages as $message): ?>
+                        <tr>
+                            <td><a href="conversation-view.php?email=<?= htmlspecialchars($message['from']) ?>"><?= htmlspecialchars($message['from']) ?></a></td>
+                            <td><?= htmlspecialchars($message['short_content']) ?></td>
+                            <td><?= htmlspecialchars($message['datetime']) ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </table>
+            <?php else : ?>
+                <p>No messages found.</p>
+            <?php endif; ?>
+
         </div>
 
 
@@ -311,7 +334,6 @@ function getPractices($search)
 
             <nav class="landingNav">
                 <a href="index.php">DocMeet</a>
-                <a href="#"> FAQ </a>
 
 
             </nav>
