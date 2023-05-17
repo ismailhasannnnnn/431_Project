@@ -59,7 +59,87 @@ if(isset($_SESSION["user_email"])){
                         .catch(error => console.log('Error:', error));
                 });
             });
+
+
+            document.querySelectorAll('.accept-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    var meetingId = this.dataset.meetingId;
+
+                    fetch('accept-meeting.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: 'meeting_id=' + encodeURIComponent(meetingId),
+                    })
+                        .then(response => response.text())
+                        .then(result => {
+                            console.log(result);
+                            location.reload();
+                        })
+                        .catch(error => console.log('Error:', error));
+                });
+            });
+
+
+            document.querySelectorAll('.decline-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    var meetingId = this.dataset.meetingId;
+
+                    fetch('delete-meeting.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: 'meeting_id=' + encodeURIComponent(meetingId),
+                    })
+                        .then(response => response.text())
+                        .then(result => {
+                            console.log(result);
+                            location.reload();
+                        })
+                        .catch(error => console.log('Error:', error));
+                });
+            });
+
+
+
+            // document.querySelectorAll('.decline-button').forEach(button => {
+            //     button.addEventListener('click', function() {
+            //         var meetingId = this.dataset.meetingId;
+            //
+            //         fetch('decline-meeting.php', {
+            //             javascript
+            //             Copy code
+            //             method: 'POST',
+            //             headers: {
+            //                 'Content-Type': 'application/x-www-form-urlencoded',
+            //             },
+            //             body: 'meeting_id=' + encodeURIComponent(meetingId),
+            //         })
+            //             .then(response => response.text())
+            //             .then(result => {
+            //                 console.log(result);
+            //                 location.reload();
+            //             })
+            //             .catch(error => console.log('Error:', error));
+            //     });
+            // });
+            //
+
+
+
+
+
+
+
+
         });
+
+
+
+
+
     </script>
 
 
@@ -90,7 +170,7 @@ if(isset($_SESSION["user_email"])){
 
     <div class="row">
 
-        <div class="one-half column">
+        <div class="seven columns">
             <h1 class="dash"> Your Appointments</h1>
 
             <?php if (!empty($meetings)) : ?>
@@ -100,7 +180,7 @@ if(isset($_SESSION["user_email"])){
                         <th>Meeting Name</th>
                         <th>Date</th>
                         <th>Time</th>
-                        <th>Actions</th> <!-- Add this line -->
+                        <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -109,10 +189,26 @@ if(isset($_SESSION["user_email"])){
                             <td>  <a href="view-meeting.php?meeting_id=<?php echo $meeting['meeting_ID']; ?>"> <?php echo $meeting['name']; ?>     </a>     </td>
                             <td><?php echo $meeting['date']; ?></td>
                             <td><?php echo $meeting['Time']; ?></td>
-                            <td> <!-- Add this cell for the delete button -->
-                                <button class="delete-button" data-meeting-id="<?php echo $meeting['meeting_ID']; ?>">Delete</button>
+
+
+
+                            <td>
+                                <?php if ($meeting['sender'] === $_SESSION['user_email']): ?> <!-- Only show the delete button if the current user is the sender -->
+                                    <button class="delete-button" data-meeting-id="<?php echo $meeting['meeting_ID']; ?>">Delete</button>
+                                <?php endif; ?>
+
+
+                                <?php if ($meeting['recipient'] === $_SESSION['user_email'] && !$meeting['accepted']): ?> <!-- Only show these buttons if the current user is the recipient and the meeting has not been accepted yet -->
+                                    <button class="accept-button" data-meeting-id="<?php echo $meeting['meeting_ID']; ?>">Accept</button>
+                                    <button class="decline-button" data-meeting-id="<?php echo $meeting['meeting_ID']; ?>">Decline</button>
+                                <?php endif; ?>
 
                             </td>
+
+                            <td>
+
+                            </td>
+
                         </tr>
                     <?php endforeach; ?>
                     </tbody>
@@ -123,23 +219,14 @@ if(isset($_SESSION["user_email"])){
             <?php endif; ?>
 
 
-
-
-
-
-
-
-
-
-
             <a href="new-meeting-view.html" class="button"> Set up a meeting</a>
 
         </div>
 
+        <div class="five columns">
 
-
-        <div class="one-half column">
             <div id='calendar'></div>
+
         </div>
 
     </div>
@@ -148,6 +235,7 @@ if(isset($_SESSION["user_email"])){
 
 
 </div>
+
 
 
 

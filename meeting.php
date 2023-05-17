@@ -46,9 +46,10 @@ $date = $_POST["meeting-date"];
 $time = $_POST["meeting-time"];
 $meetingName = $_POST['meetingName'];
 $favoriteFood = $_POST['food'];
+$accepted = 0;
 
-$query = "INSERT INTO meetings (name, date, time, sender,recipient,favoriteFood)
-            values (?, ?, ?, ?, ?, ?)";
+$query = "INSERT INTO meetings (name, date, time, sender,recipient,favoriteFood, accepted)
+            values (?, ?, ?, ?, ?, ?, ?)";
 
 
 $stmt = $mysqli->stmt_init();
@@ -58,13 +59,14 @@ if( ! $stmt->prepare($query)){
     die("SQL error". $mysqli->error);
 }
 
-if(!$stmt->bind_param("ssssss",
+if(!$stmt->bind_param("sssssss",
     $meetingName,
     $date,
     $time,
     $fromEmail,
     $toEmail,
-    $favoriteFood
+    $favoriteFood,
+    $accepted
     )){
 
     die("Binding parameters failed:" . $stmt->error);
