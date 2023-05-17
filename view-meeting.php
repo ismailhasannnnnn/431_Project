@@ -79,8 +79,10 @@ $meeting = $result->fetch_assoc();
     <h1 class="dash"> <?= htmlspecialchars($meeting["name"]) ?> </h1>
     <h4> Date: <span style="font-weight: bold;"><?= htmlspecialchars($meeting["date"]) ?> </span> </h4>
     <h4> Time: <span style="font-weight: bold;"><?= htmlspecialchars($meeting["Time"]) ?> </span> </h4>
-    <h3> Preferred Foods: <span style="font-weight: bold;"><?= htmlspecialchars($meeting["favoriteFood"]) ?> </span></h3>
     <h4> Participants: <span style="font-weight: bold;">  <?= htmlspecialchars($meeting["sender"]) ?> and  <?= htmlspecialchars($meeting["recipient"]) ?>    </span></h4>
+
+    <h4> Preferred Foods: <span style="font-weight: bold;"><?= htmlspecialchars($meeting["favoriteFood"]) ?> </span></h4>
+
 
 </div>
 

@@ -9,6 +9,9 @@ if (isset($_SESSION["user_id"])) {
     $sql = "SELECT * FROM users
             WHERE ID = {$_SESSION["user_id"]}";
 
+    $result = $mysqli->query($sql);
+
+    $user = $result->fetch_assoc();
 
     $query = "SELECT * FROM `meetings` WHERE
                               recipient = '{$_SESSION["user_email"]}'
@@ -19,9 +22,7 @@ if (isset($_SESSION["user_id"])) {
 
     $recentMeetings = $meetingResult->fetch_all(MYSQLI_ASSOC);
 
-    $result = $mysqli->query($sql);
 
-    $user = $result->fetch_assoc();
 
 
 }
@@ -93,7 +94,12 @@ function getPractices($search)
         
         <a href="appointment-view.php"> Appointments </a>
 
-        <a href="edit-practice.php"> Your Practice</a>
+
+        <?php if ($user["Type"] == "provider") : ?>
+            <a href="edit-provider.php"> Provider Profile </a>
+        <?php else : ?>
+            <a href="edit-practice.php"> Your Practice</a>
+        <?php endif; ?>
 
         <a href="message-view.php">Messages</a>
 
@@ -137,7 +143,7 @@ function getPractices($search)
 
         <div class="six columns">
             <h4> Quick Links</h4>
-            <a href="new-meeting-view.html" class="button"> Create an Invite</a>
+            <a href="new-meeting-view.php" class="button"> Create an Invite</a>
             <a href="new-message-view.html" class="button"> New Message</a>
             <a href="edit-practice.php" class="button"> Edit Practice</a>
         </div>

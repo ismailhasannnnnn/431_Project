@@ -9,6 +9,15 @@ if(isset($_SESSION["user_email"])){
 
     $mysqli = require __DIR__ . "/database.php";
 
+
+    $sql = "SELECT * FROM users
+            WHERE ID = {$_SESSION["user_id"]}";
+
+    $result = $mysqli->query($sql);
+
+    $user = $result->fetch_assoc();
+
+
     //Pull from meetings table
     $query = "SELECT * FROM `meetings` WHERE
                              sender = '{$_SESSION["user_email"]}'
@@ -158,9 +167,15 @@ if(isset($_SESSION["user_email"])){
 
     <a href="#" style="font-weight: bold;"> Appointments </a>
 
-    <a href="edit-practice.php"> Your Practice</a>
+    <?php if ($user["Type"] == "provider") : ?>
+        <a href="edit-provider.php"> Provider Profile </a>
+    <?php else : ?>
+        <a href="edit-practice.php"> Your Practice</a>
+    <?php endif; ?>
 
     <a href="message-view.php">Messages</a>
+
+
 
 
 
@@ -226,7 +241,7 @@ if(isset($_SESSION["user_email"])){
             <?php endif; ?>
 
 
-            <a href="new-meeting-view.html" class="button"> Set up a meeting</a>
+            <a href="new-meeting-view.php" class="button"> Set up a meeting</a>
 
         </div>
 

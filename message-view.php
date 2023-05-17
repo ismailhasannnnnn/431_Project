@@ -54,6 +54,26 @@ function getSentMessages(): void
     }
 }
 
+
+
+if (isset($_SESSION["user_id"])) {
+    $mysqli = require __DIR__ . "/database.php";
+
+
+
+    $sql = "SELECT * FROM users
+            WHERE ID = {$_SESSION["user_id"]}";
+
+    $result = $mysqli->query($sql);
+
+    $user = $result->fetch_assoc();
+}
+
+
+
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -75,12 +95,18 @@ function getSentMessages(): void
 
 <nav>
     <div class="divider"></div>
-    <a href="index.php">DocMeet Dashboard</a>
+    <a href="index.php" >DocMeet Dashboard</a>
 
+    <a href="appointment-view.php"> Appointments </a>
 
-    <a href="edit-practice.php"> Your Practice</a>
+    <?php if ($user["Type"] == "provider") : ?>
+        <a href="edit-provider.php"> Provider Profile </a>
+    <?php else : ?>
+        <a href="edit-practice.php"> Your Practice</a>
+    <?php endif; ?>
 
-    <a href="message-view.php" style="font-weight:bold;">Messages</a>
+    <a href="message-view.php" style="font-weight: bold;">Messages</a>
+
 
 
 </nav>

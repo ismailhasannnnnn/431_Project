@@ -1,3 +1,21 @@
+<?php
+session_start();
+
+if (isset($_SESSION["user_id"])) {
+
+    $mysqli = require __DIR__ . "/database.php";
+
+    $sql = "SELECT * FROM users
+            WHERE ID = {$_SESSION["user_id"]}";
+
+    $result = $mysqli->query($sql);
+
+    $user = $result->fetch_assoc();
+}
+
+?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -23,7 +41,11 @@
 
   <a href="appointment-view.php"> Appointments </a>
 
-  <a href="edit-practice.php"> Your Practice</a>
+    <?php if ($user["Type"] == "provider") : ?>
+        <a href="edit-provider.php"> Provider Profile </a>
+    <?php else : ?>
+        <a href="edit-practice.php"> Your Practice</a>
+    <?php endif; ?>
 
   <a href="message-view.php">Messages</a>
 
@@ -52,10 +74,7 @@
 
 
     <br>
-    <div>
-      <label for="content">Message Content: </label>
-      <textarea id="content" name="content" rows="8" cols="20"></textarea>
-    </div>
+
 
     <div>
       <label for="date">Meeting Date:</label>
