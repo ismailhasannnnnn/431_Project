@@ -45,14 +45,14 @@ $providers = array(
 
 
 foreach($practices as $practice) {
-    $sql = "INSERT INTO practices (userID, practiceName, bio, streetAddress, zipcode, city, country, practiceType)
+    $sql = "INSERT IGNORE INTO practices (userID, practiceName, bio, streetAddress, zipcode, city, country, practiceType)
             VALUES ({$practice['userID']}, '{$practice['practiceName']}', '{$practice['bio']}', '{$practice['streetAddress']}', {$practice['zipcode']}, '{$practice['city']}', '{$practice['country']}', '{$practice['practiceType']}')";
     $mysqli->query($sql);
 }
 
 
 foreach($providers as $provider) {
-    $sql = "INSERT INTO providers (userID, providerName, bio, streetAddress, zipcode, city, country, providerType)
+    $sql = "INSERT IGNORE INTO providers (userID, providerName, bio, streetAddress, zipcode, city, country, providerType)
             VALUES ({$provider['userID']}, '{$provider['providerName']}', '{$provider['bio']}', '{$provider['streetAddress']}', {$provider['zipcode']}, '{$provider['city']}', '{$provider['country']}', '{$provider['providerType']}')";
     $mysqli->query($sql);
 }

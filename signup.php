@@ -32,10 +32,12 @@ if( ! $stmt->prepare($sql)){
     die("SQL error". $mysqli->error);
 }
 
+$hashedPass = hash('sha256', $_POST["password"]);
+
 if(!$stmt->bind_param("ssss",
                     $_POST["name"],
                     $_POST["email"],
-                    $_POST["password"],
+                    $hashedPass,
                     $_POST["user_type"])){
     die("Binding parameters failed:" . $stmt->error);
 }

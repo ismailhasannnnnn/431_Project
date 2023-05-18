@@ -15,7 +15,9 @@ if($_SERVER["REQUEST_METHOD"] === "POST" ){
 
     if($user){
 
-        if($_POST["password"] === $user["Password"]){
+        $hashedPass = hash('sha256', $_POST["password"]);
+
+        if($hashedPass == $user["Password"]){
 
             session_start();
 
@@ -69,7 +71,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST" ){
         <h1 class="dash"> DockMeet Login </h1>
 
         <?php if ($is_invalid): ?>
-            <em> Invalid username or password</em>
+            <?php echo "<em> {$user["Password"]}</em>" ?>
         <?php endif; ?>
 
         <form method="post" >
