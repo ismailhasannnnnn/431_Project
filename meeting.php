@@ -80,7 +80,7 @@ if(!$stmt->bind_param("ssssssss",
 try {
     $stmt->execute();
 } catch (Exception $e) {
-    //echo "Errors executing statement: " . $e->getMessage();
+//    echo "Errors executing statement: " . $e->getMessage();
 }
 
 if ($stmt->errno) {
@@ -91,7 +91,6 @@ if ($stmt->errno) {
     }
 }else{
 
-//    echo "Signup Successful";
     header("Location: appointment-view.php");
     exit;
 }

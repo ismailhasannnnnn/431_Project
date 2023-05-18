@@ -33,7 +33,6 @@ if (isset($_SESSION["user_id"])) {
     <link rel="stylesheet" href="css/custom.css">
 
 
-    <!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kimeiga/bahunya/dist/bahunya.min.css">-->
 </head>
 <body class="main">
 
@@ -78,13 +77,7 @@ if (isset($_SESSION["user_id"])) {
             <textarea id="content" name="content" rows="8" cols="20"></textarea>
         </div>
 
-<!--        <div>-->
-<!--            <label for="start">Start date:</label>-->
 
-<!--            <input type="date" id="start" name="meeting-start"-->
-<!--                   value="2018-07-22"-->
-<!--                   min="2023-01-01" max="2099-12-31">-->
-<!--        </div>-->
         <br>
 
 

@@ -81,8 +81,6 @@ if(isset($_SESSION["user_id"])){
             </h5>
 
 
-<!--            <a href="#"> Edit Practice</a>-->
-<!--            <button> Edit Practice </button>-->
 
             <form method="post">
                 <input type="submit" name="editPractice" value="Edit Practice"/>

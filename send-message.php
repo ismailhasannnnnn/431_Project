@@ -8,7 +8,6 @@ if(isset($_POST['sendMessage'])) {
     $dateTimeVariable = date('Y-m-d H:i:s');
     $falseVal = 0;
     $nullVal = null;
-//    $query = "INSERT INTO messages VALUES ('$toEmail', '$user_email', '$message', '$dateTimeVariable', false, null)";
     $query = "INSERT INTO messages (`to`, `from`, content, datetime, `read`, time_read) VALUES (?,?,?,?,?,?)";
     $stmt = $mysqli->stmt_init();
     if(!$stmt->prepare($query)){
@@ -31,7 +30,6 @@ if(isset($_POST['sendMessage'])) {
         echo "Errors executing statement: " . $e->getMessage();
     }
 
-//    $result = mysqli_query($mysqli, $query);
     header("Location: conversation-view.php?email=$toEmail");
     exit();
 }
