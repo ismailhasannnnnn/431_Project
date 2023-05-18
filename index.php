@@ -116,6 +116,77 @@ function getPractices($search)
     echo "</table>";
 }
 
+function getAll()
+{
+    $mysqli = require __DIR__ . "/database.php";
+
+    $sqlPractices = "SELECT * FROM practices";
+    $sqlProviders = "SELECT * FROM providers";
+
+    $resultPractices = $mysqli->query($sqlPractices);
+    $resultProviders = $mysqli->query($sqlProviders);
+
+    $practices = $resultPractices->fetch_all(MYSQLI_ASSOC);
+    $providers = $resultProviders->fetch_all(MYSQLI_ASSOC);
+
+
+
+    echo "<div class='container main-card'>";
+    echo '<div class="row">';
+    echo '<div class="one-half column">';
+    echo '<h1 class="dash"> All Practices and Providers </h1>';
+    echo '</div>';
+    echo '<div class="one-half column">';
+    echo '';
+    echo '<form method="post" id="closeButton">';
+    echo '<input type="submit" name="closePractice" value="X"/>';
+    echo '</form>';
+    echo '';
+    echo '</div>';
+    echo '</div>';
+    echo "<table>";
+    echo "<tr><th>Type</th><th>Name</th><th>Title</th><th>Street Address</th><th>City</th><th>Zip Code</th><th>Country</th><th>Contact</th></tr>";
+
+    foreach ($practices as $row) {
+        $emailQuery = "SELECT email FROM users WHERE ID=?";
+        $emailStmt = $mysqli->prepare($emailQuery);
+        $emailStmt->bind_param('i', $row['userID']);
+        $emailStmt->execute();
+        $emailResult = $emailStmt->get_result();
+        if ($emailResult->num_rows > 0) {
+            $email = $emailResult->fetch_array()[0];
+        } else {
+            $email = null;
+        }
+        $contactUrl = 'new-message-view.php?email=' . $email;
+        $inviteUrl = 'new-meeting-view.php?email=' . $email;
+
+        echo "<tr><td style='font-weight: bold;'>Practice</td><td>{$row['practiceName']}</td><td>{$row['practiceType']}</td><td>{$row['streetAddress']}</td><td>{$row['city']}</td><td>{$row['zipcode']}</td><td>{$row['country']}</td><td><a href=$contactUrl class='button'>Contact</a><a href=$inviteUrl class='button'>&nbsp Invite &nbsp   </a></td></tr>";
+    }
+
+    foreach ($providers as $row) {
+        $emailQuery = "SELECT email FROM users WHERE ID=?";
+        $emailStmt = $mysqli->prepare($emailQuery);
+        $emailStmt->bind_param('i', $row['userID']);
+        $emailStmt->execute();
+        $emailResult = $emailStmt->get_result();
+        if ($emailResult->num_rows > 0) {
+            $email = $emailResult->fetch_array()[0];
+        } else {
+            $email = null;
+        }
+        $contactUrl = 'new-message-view.php?email=' . $email;
+        $inviteUrl = 'new-meeting-view.php?email=' . $email;
+
+        echo "<tr><td style='font-weight: bold;'>Provider</td><td>{$row['providerName']}</td><td>{$row['providerType']}</td><td>{$row['streetAddress']}</td><td>{$row['city']}</td><td>{$row['zipcode']}</td><td>{$row['country']}</td><td><a href=$contactUrl class='button'>Contact</a><a href=$inviteUrl class='button'>&nbsp Invite &nbsp</a></td></tr>";
+    }
+    echo "</table>";
+    echo "</div>";
+
+}
+
+
+
 
 
 
@@ -188,6 +259,9 @@ function getPractices($search)
                 <form class="searchbar" action="" method="get">
                     <input type="search" placeholder="Search by Name, Zip, or Type..." name="search" id="search">
                     <button style="display:flex; align-items:center; justify-content:center;"><i class="material-icons">search</i></button>
+                </form>
+                <form method="post">
+                    <input type="submit" name="showAll" value="Display All"/>
                 </form>
             </div>
         </div>
@@ -298,6 +372,13 @@ function getPractices($search)
     <?php endif; ?>
 </div>
 
+<?php
+if(isset($_POST['showAll'])) {
+    getAll();
+
+}
+?>
+
 
 <?php
 if(isset($_GET['search'])){
@@ -312,6 +393,10 @@ if(isset($_GET['search'])){
     echo '</div>';
 }
 ?>
+
+
+
+
 
 </body>
 </html>
