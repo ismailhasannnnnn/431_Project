@@ -86,7 +86,11 @@ function getPractices($search)
         $emailStmt->bind_param('i', $row['userID']);
         $emailStmt->execute();
         $emailResult = $emailStmt->get_result();
-        $email = $emailResult->fetch_array()[0];
+        if ($emailResult->num_rows > 0) {
+            $email = $emailResult->fetch_array()[0];
+        } else {
+            $email = null;
+        }
         $contactUrl = 'new-message-view.php?email=' . $email;
         $inviteUrl = 'new-meeting-view.php?email=' . $email;
 
@@ -99,7 +103,11 @@ function getPractices($search)
         $emailStmt->bind_param('i', $row['userID']);
         $emailStmt->execute();
         $emailResult = $emailStmt->get_result();
-        $email = $emailResult->fetch_array()[0];
+        if ($emailResult->num_rows > 0) {
+            $email = $emailResult->fetch_array()[0];
+        } else {
+            $email = null;
+        }
         $contactUrl = 'new-message-view.php?email=' . $email;
         $inviteUrl = 'new-meeting-view.php?email=' . $email;
 
