@@ -31,7 +31,6 @@ if(isset($_SESSION["user_id"])){
     <link rel="stylesheet" href="css/custom.css">
 
 
-    <!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kimeiga/bahunya/dist/bahunya.min.css">-->
 </head>
 
 

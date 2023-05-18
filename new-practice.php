@@ -36,16 +36,7 @@ if(empty($_POST["logo"])) {
 
 
 
-//if(empty($_POST["content"])) {
-//    die("there's no message");
-//}
-
 $mysqli = require __DIR__ . "/database.php";
-
-//$fromEmail = $_SESSION["user_id"];
-//$toEmail = $_POST["emailTo"];
-//$content = $_POST["content"];
-
 $userID = $_SESSION["user_id"];
 $practiceName = $_POST["practiceName"];
 $bio = $_POST["bio"];

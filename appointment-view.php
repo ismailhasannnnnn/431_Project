@@ -8,13 +8,9 @@ ini_set('display_errors', 1);
 if(isset($_SESSION["user_email"])){
 
     $mysqli = require __DIR__ . "/database.php";
-
-
     $sql = "SELECT * FROM users
             WHERE ID = {$_SESSION["user_id"]}";
-
     $result = $mysqli->query($sql);
-
     $user = $result->fetch_assoc();
 
 
@@ -110,33 +106,6 @@ if(isset($_SESSION["user_email"])){
                         .catch(error => console.log('Error:', error));
                 });
             });
-
-
-
-            // document.querySelectorAll('.decline-button').forEach(button => {
-            //     button.addEventListener('click', function() {
-            //         var meetingId = this.dataset.meetingId;
-            //
-            //         fetch('decline-meeting.php', {
-            //             javascript
-            //             Copy code
-            //             method: 'POST',
-            //             headers: {
-            //                 'Content-Type': 'application/x-www-form-urlencoded',
-            //             },
-            //             body: 'meeting_id=' + encodeURIComponent(meetingId),
-            //         })
-            //             .then(response => response.text())
-            //             .then(result => {
-            //                 console.log(result);
-            //                 location.reload();
-            //             })
-            //             .catch(error => console.log('Error:', error));
-            //     });
-            // });
-            //
-
-
 
 
 

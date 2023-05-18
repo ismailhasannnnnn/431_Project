@@ -58,7 +58,6 @@ if ($stmt->errno) {
     }
 }else{
 
-//    echo "Signup Successful";
     header("Location: message-view.php");
     exit;
 }

@@ -24,6 +24,8 @@ if ($mysqli->error) {
     die("Error selecting database: " . $mysqli->error);
 }
 
+//SQL QUERIES TO CREATE TABLES IF DOESNT EXIST
+
 $sql = "
     CREATE TABLE IF NOT EXISTS `users` (
         `ID` INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,

@@ -52,7 +52,6 @@ if($_SERVER["REQUEST_METHOD"] === "POST" ){
     <link rel="stylesheet" href="css/skeleton.css">
     <link rel="stylesheet" href="css/custom.css">
 
-    <!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kimeiga/bahunya/dist/bahunya.min.css">-->
 </head>
 
 

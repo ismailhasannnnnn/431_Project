@@ -25,21 +25,11 @@ if(empty($_POST["city"])) {
 if(empty($_POST["country"])) {
     die("missing country");
 }
-//if(empty($_POST["logo"])) {
-//    die("Please upload an image for your logo");
-//}
 
-
-
-//if(empty($_POST["content"])) {
-//    die("there's no message");
-//}
 
 $mysqli = require __DIR__ . "/database.php";
 
-//$fromEmail = $_SESSION["user_id"];
-//$toEmail = $_POST["emailTo"];
-//$content = $_POST["content"];
+
 
 $userID = $_SESSION["user_id"];
 $practiceName = $_POST["practiceName"];
